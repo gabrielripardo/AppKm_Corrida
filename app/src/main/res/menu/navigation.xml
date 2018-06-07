@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<!--
+    Data de criação: 02/06/2018
+    obs.: //
+-->
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
+
+    <item
+        android:id="@+id/navigation_metas"
+        android:icon="@drawable/ic_metas_black"
+        android:title="Metas" />
+
+    <item
+        android:id="@+id/navigation_statistics"
+        android:icon="@drawable/ic_statistics_black"
+        android:title="Estatísticas" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings_black"
+        android:title="Configurações" />
+    <item
+        android:id="@+id/navigation_help"
+        android:icon="@drawable/ic_help_black"
+        android:title="Ajuda" />
+
+</menu>
