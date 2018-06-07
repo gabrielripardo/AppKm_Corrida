@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
                     // Tela de metas
                     selectedFragment = Metas.newInstance();
                     break;
-
+asdfklj
                 case R.id.navigation_statistics:
-                    // Tela de estatísticas
+                    // Tela de estatísticasofposkdfopipo
                     selectedFragment = Statistics.newInstance();
                     break;
 
