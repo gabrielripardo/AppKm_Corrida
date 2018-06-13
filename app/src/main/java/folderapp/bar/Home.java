@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ import folderapp.bar.Model.CorridaDAO;
 
 public class Home extends Fragment{
     Context contexto;
-    private Button btnCorrer, btnMeta;
+    private ImageButton btnCorrer, btnMeta;
     private TextView tVKm, tVMinutos;
     private CorridaDAO db;
     // private AppCompatActivity activity;
@@ -50,8 +51,8 @@ public class Home extends Fragment{
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        btnCorrer = (Button) v.findViewById(R.id.correrAgora_btn);
-        btnMeta = (Button) v.findViewById(R.id.definirMeta_btn); //No xml é EditText mais foi referenciado como TextView.
+        btnCorrer = (ImageButton) v.findViewById(R.id.correrAgora_btn);
+        btnMeta = (ImageButton) v.findViewById(R.id.definirMeta_btn); //No xml é EditText mais foi referenciado como TextView.
 
         btnCorrer.setOnClickListener(new View.OnClickListener() {
             @Override

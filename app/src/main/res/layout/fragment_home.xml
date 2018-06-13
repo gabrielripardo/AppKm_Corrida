@@ -11,39 +11,70 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
+        <ImageButton
             android:id="@+id/correrAgora_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="196dp"
-            android:background="@android:color/holo_blue_dark"
-            android:text="Correr Agora"
-            android:textAllCaps="false"
-            android:textColor="@android:color/background_light"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/definirMeta_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:background="@android:color/holo_blue_dark"
-            android:text="Definir Meta"
-            android:textAllCaps="false"
-            android:textColor="@android:color/background_light"
+            android:background="#778696"
+            android:src="@drawable/ic_correr_agora"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/definirMeta_btn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.632" />
+
+        <ImageButton
+            android:id="@+id/definirMeta_btn"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:background="#5f7279"
+            android:src="@drawable/ic_criar_meta"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/correrAgora_btn"
-            app:layout_constraintVertical_bias="0.093" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.632" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="84dp"
+            android:layout_marginTop="48dp"
+            android:text="Criar Meta"
+            android:textColor="#ffffffff"
+            app:layout_constraintBottom_toBottomOf="@+id/definirMeta_btn"
+            app:layout_constraintEnd_toEndOf="@+id/definirMeta_btn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/definirMeta_btn"
+            app:layout_constraintTop_toTopOf="@+id/definirMeta_btn"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="68dp"
+            android:layout_marginTop="48dp"
+            android:text="Correr Agora"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/correrAgora_btn"
+            app:layout_constraintEnd_toEndOf="@+id/correrAgora_btn"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/correrAgora_btn"
+            app:layout_constraintTop_toTopOf="@+id/correrAgora_btn"
+            app:layout_constraintVertical_bias="0.0" />
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>
