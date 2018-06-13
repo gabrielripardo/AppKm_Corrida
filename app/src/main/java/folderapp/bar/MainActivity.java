@@ -10,10 +10,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import folderapp.bar.Model.Corrida;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -68,4 +71,21 @@ public class MainActivity extends AppCompatActivity {
         transaction.replace(R.id.frame_layout, Home.newInstance());
         transaction.commit();
     }
+    public static class Transicao{
+        public static Corrida crdObj;
+
+        public static void abrirView(FragmentActivity fragActy, Fragment selectedFragment){
+            FragmentTransaction transaction = fragActy.getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, selectedFragment);
+            transaction.commit();
+        }
+        public static Corrida getCorrida(){
+            return crdObj;
+        }
+        public static void setCorrida(Corrida c){
+            crdObj = c;
+        }
+
+    }
+
 }

@@ -17,7 +17,7 @@ import java.text.DecimalFormat;
 import folderapp.bar.Model.Corrida;
 import folderapp.bar.Model.CorridaDAO;
 
-public class Meta extends Fragment{
+public class MyMeta extends Fragment{
     Context contexto;
     private Button btnVoltar, btnSalvar;
     private FloatingActionButton btnIncrement, btnDecrement, btnIncremMin, btnDecremMin;
@@ -28,9 +28,10 @@ public class Meta extends Fragment{
     private float km = 0;
     private DecimalFormat dc;
     private int minutos = 0;
+    private Corrida corrida;
 
-    public static Meta newInstance() {
-        Meta fragment = new Meta();
+    public static MyMeta newInstance() {
+        MyMeta fragment = new MyMeta();
         return fragment;
 
     }
@@ -63,6 +64,14 @@ public class Meta extends Fragment{
         btnDecrement = (FloatingActionButton) v.findViewById(R.id.decrement_btn);
         btnIncremMin = (FloatingActionButton) v.findViewById(R.id.incremMin_btn);
         btnDecremMin = (FloatingActionButton) v.findViewById(R.id.decremMin_btn);
+
+        //Recupera o objeto corrida
+        corrida = MainActivity.Transicao.getCorrida();
+
+        //Faz o set nos TextViews
+        tVKm.setText(String.valueOf(corrida.getMaxKm()));
+        tVMinutos.setText(String.valueOf(corrida.getMaxTempo()));
+        tIETComment.setText(String.valueOf(corrida.getComment()));
 
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,16 +114,19 @@ public class Meta extends Fragment{
                 String mi = String.valueOf(String.valueOf(tVMinutos.getText()));
                 String co = String.valueOf(String.valueOf(tIETComment.getText()));
 
+                corrida.setMaxKm(Float.parseFloat(String.valueOf(tVKm.getText())));
+                corrida.setMaxTempo(String.valueOf(tVMinutos.getText()));
+                corrida.setComment(String.valueOf(tIETComment.getText()));
 
-                db.addCorrida(new Corrida(co, km, mi));
+                db.atualizarCorrida(corrida);
                 //Toast.makeText(Home.this, "Salvo com sucesso!", Toast.LENGTH_LONG).show();
-                Toast.makeText(getActivity(), "Meta criada com sucesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Meta atualizada com sucesso", Toast.LENGTH_SHORT).show();
             }
         });
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.Transicao.abrirView(getActivity(), Home.newInstance());
+                MainActivity.Transicao.abrirView(getActivity(), Metas.newInstance());
             }
         });
 

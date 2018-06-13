@@ -3,6 +3,7 @@ package folderapp.bar;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +43,9 @@ public class Metas extends Fragment {
         return v;
     }
     public void carregarLista(){
-
+        FragmentActivity fA = getActivity();
         ArrayList<Corrida> lista = (ArrayList<Corrida>) db.listarTodasCorridas();
-        ArrayAdapter adapter = new CorridaAdapter(getActivity(), lista);
+        ArrayAdapter adapter = new CorridaAdapter(getActivity(), lista, fA);
         lVCorridas.setAdapter(adapter);
 
     }

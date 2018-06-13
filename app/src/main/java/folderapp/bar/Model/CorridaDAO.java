@@ -87,7 +87,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
 
         ContentValues values = new ContentValues();
         values.put(COLUNA_COMENTARIO, corrida.getComment());
-        values.put(COLUNA_MAXTEMPO, corrida.getMaxKm());
+        values.put(COLUNA_MAXKM, corrida.getMaxKm());
         values.put(COLUNA_MAXTEMPO, corrida.getMaxTempo());
 
         db.update(TABELA_CORRIDA, values, COLUNA_CODIGO + " = ?",

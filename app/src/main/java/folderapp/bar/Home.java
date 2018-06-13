@@ -65,11 +65,7 @@ public class Home extends Fragment{
             @Override
             public void onClick(View v) {
                 // Criar uma meta
-                Fragment selectedFragment = null;
-                selectedFragment = Meta.newInstance();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, selectedFragment);
-                transaction.commit();
+                MainActivity.Transicao.abrirView(getActivity(), Meta.newInstance());
             }
         });
 
