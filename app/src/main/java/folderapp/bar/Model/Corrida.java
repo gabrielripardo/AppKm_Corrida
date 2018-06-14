@@ -7,7 +7,7 @@ public class Corrida {
     private String comment;
     private float maxKm;
     private String maxTempo;
-    private float km; // Sistema que introduz no banco
+    private float km; // Sistema que introduz no banco //API Location ou algum outro sensor que detecta movimentação.
     private String tempo; // Sistema que introduz no banco
     private String diaHoraAno; //Sistema que introduz no banco
     private String horario; // Sistema que introduz no banco

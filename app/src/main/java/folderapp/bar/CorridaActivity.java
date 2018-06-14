@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import folderapp.bar.Model.Corrida;
+import folderapp.bar.Model.CorridaDAO;
 
 
 public class CorridaActivity extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class CorridaActivity extends AppCompatActivity {
     private Button btnIniciar, btnParar, btnPausar;
     private Chronometer cronometro;
     private long milliseconds;
+    private CorridaDAO bd = new CorridaDAO(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,15 @@ public class CorridaActivity extends AppCompatActivity {
         btnParar.setEnabled(false);
         btnPausar.setEnabled(false);
 
+        //Marca as horas em que a corrida foi iniciada
+        TextClock clock;
+        clock = new TextClock(getApplicationContext());
+        clock.setFormat12Hour("HH:mm");
+        String horario = String.valueOf(clock.getText());
+        corrida.setHorario(horario);
+        MainActivity.Transicao.setCorrida(corrida);
+        Log.i("###############", "Horário: " + MainActivity.Transicao.getCorrida().getHorario());
+
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,16 +65,32 @@ public class CorridaActivity extends AppCompatActivity {
 
                 cronometro.setBase(SystemClock.elapsedRealtime() - milliseconds);
                 cronometro.start();
+
+
             }
         });
         btnParar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                corrida.setFinalizada(true);
+
+                //Comportamento dos botões
                 btnParar.setBackgroundColor(Color.RED);
                 btnIniciar.setEnabled(false);
                 btnParar.setEnabled(false);
                 btnPausar.setEnabled(false);
+
+                //Cronometro deve parar e guardar seu valor no objeto Corrida
                 cronometro.stop();
+                corrida.setTempo(String.valueOf(cronometro.getText()));
+
+                //Pegar todas as informações da corrida e guradar no BD.
+                Log.i("###############","Tempo de corrida: "+corrida.getTempo()+
+                "Meta de Km: "+corrida.getMaxKm()+" Tempo máximo: "+corrida.getMaxTempo()+
+                        " Horário do início da largada: "+corrida.getHorario()+
+                                " Finalizada: "+corrida.isFinalizada()
+
+                );
                 //A ideia é quando é usuário acionar esse botão, o tempo será armazenado no BD e será aberta uma view.
             }
         });
@@ -76,8 +104,5 @@ public class CorridaActivity extends AppCompatActivity {
                 cronometro.stop();
             }
         });
-
-
-
     }
 }
