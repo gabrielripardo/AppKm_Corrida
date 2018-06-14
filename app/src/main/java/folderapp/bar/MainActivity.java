@@ -6,6 +6,8 @@ package folderapp.bar;
     bibliografia: http://www.truiton.com/2017/01/android-bottom-navigation-bar-example/
 */
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -70,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, Home.newInstance());
         transaction.commit();
+
+
+
     }
     public static class Transicao{
         public static Corrida crdObj;
@@ -85,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         public static void setCorrida(Corrida c){
             crdObj = c;
         }
-
     }
 
 }

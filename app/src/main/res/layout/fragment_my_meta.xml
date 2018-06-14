@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="80dp"
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:src="@drawable/ic_menos_blue"
@@ -43,29 +43,26 @@
             app:layout_constraintBottom_toBottomOf="@+id/minutos_eT"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintVertical_bias="0.888" />
+            app:layout_constraintVertical_bias="1.0" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/decrement_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="70dp"
-            android:layout_marginTop="108dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="72dp"
             android:clickable="true"
             android:src="@drawable/ic_menos_blue"
             app:backgroundTint="@android:color/holo_blue_dark"
             app:layout_constraintBottom_toTopOf="@+id/decremMin_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/incremMin_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            android:layout_marginEnd="88dp"
+            android:layout_marginEnd="96dp"
             android:layout_marginTop="8dp"
             android:clickable="true"
             android:src="@drawable/ic_mais_blue"
@@ -73,22 +70,19 @@
             app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:layout_constraintVertical_bias="0.304" />
+            app:layout_constraintVertical_bias="0.36" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/increment_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="70dp"
-            android:layout_marginTop="108dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginEnd="80dp"
             android:clickable="true"
             android:src="@drawable/ic_mais_blue"
             app:backgroundTint="@android:color/holo_blue_dark"
             app:layout_constraintBottom_toTopOf="@+id/incremMin_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <EditText
             android:id="@+id/km_tV"
@@ -105,6 +99,7 @@
             android:textAllCaps="true"
             android:textSize="40sp"
             app:layout_constraintEnd_toStartOf="@+id/increment_btn"
+            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintStart_toEndOf="@+id/decrement_btn"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -118,7 +113,7 @@
             android:text="Meta de Km:"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.456"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -186,7 +181,7 @@
             android:textSize="28sp"
             app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
             app:layout_constraintEnd_toStartOf="@+id/incremMin_btn"
-            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintHorizontal_bias="0.473"
             app:layout_constraintStart_toEndOf="@+id/decremMin_btn"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
             app:layout_constraintVertical_bias="0.0" />
@@ -197,12 +192,27 @@
             android:layout_height="15dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="28dp"
             android:text="Tempo Máximo:"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintHorizontal_bias="0.456"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/km_tV" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Minha Meta"
+            android:textColor="#ff000000"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.32" />
 
     </android.support.constraint.ConstraintLayout>
 

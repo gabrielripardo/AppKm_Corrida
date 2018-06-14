@@ -1,6 +1,8 @@
 package folderapp.bar;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
@@ -19,7 +21,7 @@ import folderapp.bar.Model.CorridaDAO;
 
 public class MyMeta extends Fragment{
     Context contexto;
-    private Button btnVoltar, btnSalvar;
+    private Button btnVoltar, btnSalvar, btnCorrer;
     private FloatingActionButton btnIncrement, btnDecrement, btnIncremMin, btnDecremMin;
     private TextView tVKm, tVMinutos;
     private TextInputEditText tIETComment;
@@ -48,14 +50,16 @@ public class MyMeta extends Fragment{
 
         db = new CorridaDAO(getActivity());
         dc = new DecimalFormat("0.00");
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_meta, container, false);
+        View v = inflater.inflate(R.layout.fragment_my_meta, container, false);
 
         btnVoltar = (Button) v.findViewById(R.id.voltar_btn);
+        btnCorrer = (Button) v.findViewById(R.id.correrr_btn);
         tVKm = (TextView) v.findViewById(R.id.km_tV); //No xml é EditText mais foi referenciado como TextView.
         tVMinutos = (TextView) v.findViewById(R.id.minutos_eT);
         tIETComment = (TextInputEditText) v.findViewById(R.id.comment_tIET);
@@ -127,6 +131,14 @@ public class MyMeta extends Fragment{
             @Override
             public void onClick(View v) {
                 MainActivity.Transicao.abrirView(getActivity(), Metas.newInstance());
+            }
+        });
+        btnCorrer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.Transicao.setCorrida(corrida);
+                Intent intent = new Intent(getActivity(), CorridaActivity.class);
+                startActivity(intent);
             }
         });
 
