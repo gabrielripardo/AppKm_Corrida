@@ -49,27 +49,88 @@
         android:text="KM  0.0/0.0"
         android:textSize="40sp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text=" Tempo: 00:00"
-        android:textSize="24sp" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="168dp">
 
-    <Button
-        android:id="@+id/start_btn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="#3e87ee"
-        android:text="Iniciar"
-        android:textColor="@android:color/background_light" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="16dp"
+            android:text=" Tempo: "
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/iniciar_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Chronometer
+            android:id="@+id/cronometro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="72dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:text="00"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.085"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/iniciar_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="52dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="Iniciar"
+            android:textAllCaps="false"
+            android:typeface="monospace"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/pausar_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="52dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Pausar"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/parar_btn"
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toEndOf="@+id/iniciar_btn"
+            app:layout_constraintTop_toBottomOf="@+id/cronometro"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/parar_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="52dp"
+            android:layout_marginEnd="36dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif"
+            android:text="Parar"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:text="Parar" />
+
+    </android.support.constraint.ConstraintLayout>
 
 </LinearLayout>
