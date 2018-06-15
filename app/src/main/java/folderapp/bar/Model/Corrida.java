@@ -9,7 +9,7 @@ public class Corrida {
     private String maxTempo;
     private float km; // Sistema que introduz no banco //API Location ou algum outro sensor que detecta movimentação.
     private String tempo; // Sistema que introduz no banco
-    private String diaHoraAno; //Sistema que introduz no banco
+    private String diaMesAno; //Sistema que introduz no banco
     private String horario; // Sistema que introduz no banco
     private boolean finalizada; // Sistema que introduz no banco
 
@@ -30,25 +30,25 @@ public class Corrida {
         this.maxTempo = maxTempo;
     }
 
-    public Corrida(String comment, float maxKm, float km, String maxTempo, String tempo, String diaHoraAno, String horario, boolean finalizada) {
+    public Corrida(String comment, float maxKm, float km, String maxTempo, String tempo, String diaMesAno, String horario, boolean finalizada) {
         this.comment = comment;
         this.maxKm = maxKm;
         this.km = km;
         this.maxTempo = maxTempo;
         this.tempo = tempo;
-        this.diaHoraAno = diaHoraAno;
+        this.diaMesAno = diaMesAno;
         this.horario = horario;
         this.finalizada = finalizada;
     }
 
-    public Corrida(int id, String comment, float maxKm, float km, String maxTempo, String tempo, String diaHoraAno, String horario, boolean finalizada) {
+    public Corrida(int id, String comment, float maxKm, float km, String maxTempo, String tempo, String diaMesAno, String horario, boolean finalizada) {
         this.id = id;
         this.comment = comment;
         this.maxKm = maxKm;
         this.km = km;
         this.maxTempo = maxTempo;
         this.tempo = tempo;
-        this.diaHoraAno = diaHoraAno;
+        this.diaMesAno = diaMesAno;
         this.horario = horario;
         this.finalizada = finalizada;
     }
@@ -101,12 +101,12 @@ public class Corrida {
         this.tempo = tempo;
     }
 
-    public String getDiaHoraAno() {
-        return diaHoraAno;
+    public String getdiaMesAno() {
+        return diaMesAno;
     }
 
-    public void setDiaHoraAno(String diaHoraAno) {
-        this.diaHoraAno = diaHoraAno;
+    public void setdiaMesAno(String diaMesAno) {
+        this.diaMesAno = diaMesAno;
     }
 
     public String getHorario() {

@@ -58,7 +58,7 @@ public class Meta extends Fragment{
         tVKm = (TextView) v.findViewById(R.id.km_tV); //No xml é EditText mais foi referenciado como TextView.
         tVMinutos = (TextView) v.findViewById(R.id.minutos_eT);
         tIETComment = (TextInputEditText) v.findViewById(R.id.comment_tIET);
-        btnSalvar = (Button) v.findViewById(R.id.correrr_btn);
+        btnSalvar = (Button) v.findViewById(R.id.correr_btn);
         btnIncrement = (FloatingActionButton) v.findViewById(R.id.increment_btn);
         btnDecrement = (FloatingActionButton) v.findViewById(R.id.decrement_btn);
         btnIncremMin = (FloatingActionButton) v.findViewById(R.id.incremMin_btn);

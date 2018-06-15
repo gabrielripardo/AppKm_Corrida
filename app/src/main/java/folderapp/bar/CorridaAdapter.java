@@ -45,8 +45,8 @@ public class CorridaAdapter extends ArrayAdapter<Corrida> {
 		rowView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Corrida corrida = db.carregarCorrida(elementos.get(position).getId());
-				Log.i("&&&&&&&&&&", "Item selecionado! Id: "+String.valueOf(corrida.getId())+" Máximo de Km: "+String.valueOf(corrida.getMaxKm()));
+				Corrida corrida = db.carregarCorrida(elementos.get(position));
+				Log.i("&&&&&&&&&&|||||", "Item selecionado! Id: "+String.valueOf(corrida.getId())+" Máximo de Km: "+String.valueOf(corrida.getMaxKm()+" Finalizada"+corrida.isFinalizada()+" Tempo: "+corrida.getTempo()));
 
 				//Ao clicar no item uma nova view será aberta com as informações detalhadas da corrida
 				MainActivity.Transicao.setCorrida(corrida);
@@ -58,9 +58,6 @@ public class CorridaAdapter extends ArrayAdapter<Corrida> {
 		TextView tVmaxKm = (TextView) rowView.findViewById(R.id.maxKm_tV);
 		TextView tVmaxTempo = (TextView) rowView.findViewById(R.id.maxTempo_tV);
 
-		tVmaxKm.setText("Item foi selecionado");
-
-		//ImageView imagem = (ImageView) rowView.findViewById(R.id.imagem);
 		final Button btnDeletar = (Button) rowView.findViewById(R.id.deletar_btn);
 
 		tVmaxKm.setText(String.valueOf(elementos.get(position).getMaxKm()));

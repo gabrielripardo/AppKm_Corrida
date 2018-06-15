@@ -1,8 +1,13 @@
 package folderapp.bar;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +15,8 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextClock;
 import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
 
 import folderapp.bar.Model.Corrida;
 import folderapp.bar.Model.CorridaDAO;
@@ -45,14 +52,22 @@ public class CorridaActivity extends AppCompatActivity {
         btnParar.setEnabled(false);
         btnPausar.setEnabled(false);
 
+        //Marca a data de largada
+        long date = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String dateString = sdf.format(date);
+        corrida.setdiaMesAno(dateString);
+        Log.i("####### Data #######", corrida.getdiaMesAno());
+
+
         //Marca as horas em que a corrida foi iniciada
         TextClock clock;
         clock = new TextClock(getApplicationContext());
         clock.setFormat12Hour("HH:mm");
         String horario = String.valueOf(clock.getText());
         corrida.setHorario(horario);
-        MainActivity.Transicao.setCorrida(corrida);
-        Log.i("###############", "Horário: " + MainActivity.Transicao.getCorrida().getHorario());
+
+        Log.i("###############", "Horário: " + corrida.getHorario());
 
         btnIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,13 +100,22 @@ public class CorridaActivity extends AppCompatActivity {
                 corrida.setTempo(String.valueOf(cronometro.getText()));
 
                 //Pegar todas as informações da corrida e guradar no BD.
-                Log.i("###############","Tempo de corrida: "+corrida.getTempo()+
-                "Meta de Km: "+corrida.getMaxKm()+" Tempo máximo: "+corrida.getMaxTempo()+
+                Log.i("###############","Id: "+String.valueOf(corrida.getId())+"Tempo de corrida: "+corrida.getTempo()+
+                " Meta de Km: "+corrida.getMaxKm()+" Tempo máximo: "+corrida.getMaxTempo()+
                         " Horário do início da largada: "+corrida.getHorario()+
-                                " Finalizada: "+corrida.isFinalizada()
-
-                );
+                        " Data: "+ corrida.getdiaMesAno()+
+                                " Finalizada: "+corrida.isFinalizada());
                 //A ideia é quando é usuário acionar esse botão, o tempo será armazenado no BD e será aberta uma view.
+
+                bd.atualizarCorridaFinalizada(corrida);
+
+                startActivity(new Intent(CorridaActivity.this, MainActivity.class));
+
+                /*Fragment fragmentSelect = MyMeta.newInstance();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, fragmentSelect);
+                transaction.commit();
+                */
             }
         });
         btnPausar.setOnClickListener(new View.OnClickListener() {
