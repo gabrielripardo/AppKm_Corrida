@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,9 +71,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, Home.newInstance());
         transaction.commit();
-
-
-
     }
     public static class Transicao{
         public static Corrida crdObj;
@@ -91,5 +87,4 @@ public class MainActivity extends AppCompatActivity {
             crdObj = c;
         }
     }
-
 }

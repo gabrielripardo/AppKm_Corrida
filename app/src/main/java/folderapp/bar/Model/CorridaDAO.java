@@ -196,7 +196,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
     public List<Corrida> listarTodasCorridas(){
         List<Corrida> listaCorridas = new ArrayList<Corrida>();
 
-        String query = "SELECT * FROM " + TABELA_CORRIDA;
+        String query = "SELECT * FROM " + TABELA_CORRIDA+" ORDER BY "+COLUNA_CODIGO+" DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(query, null);

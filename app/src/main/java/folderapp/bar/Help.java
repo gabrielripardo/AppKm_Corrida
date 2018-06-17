@@ -5,8 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class Help extends Fragment {
+    private WebView page;
+
     public static Help newInstance() {
         Help fragment = new Help();
         return fragment;
@@ -19,8 +23,26 @@ public class Help extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                         Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_help, container, false);
+        View v = inflater.inflate(R.layout.fragment_help, container, false);
+
+        page = (WebView) v.findViewById(R.id.page_wV);
+        page.setWebViewClient(new MyBrowser());
+        abrirPagina();
+        return v;
+    }
+    public void abrirPagina(){
+        String url = "http://google.com"; //Preciso inserir um html existente no projeto.
+        page.getSettings().setLoadsImagesAutomatically(true);
+        page.getSettings().setJavaScriptEnabled(true);
+        page.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        page.loadUrl(url);
+    }
+    private class MyBrowser extends WebViewClient{
+        public boolean overrideUrlLoading(WebView view, String url){
+            view.loadUrl(url);
+            return true;
+        }
     }
 }
