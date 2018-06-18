@@ -54,18 +54,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
         //No code;
     }
 
-    public boolean apagarBanco(){
-        try{
-            SQLiteDatabase db = this.getWritableDatabase();
 
-            db.execSQL("DROP TABLE IF EXISTS tb_corridas");
-
-        }catch (NullPointerException e){
-            e.printStackTrace();
-            return true;
-        }
-        return false;
-    }
     public void addCorrida(Corrida corrida){
 
         SQLiteDatabase db = this.getWritableDatabase();

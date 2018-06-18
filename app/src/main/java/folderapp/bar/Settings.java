@@ -28,7 +28,7 @@ public class Settings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_settings, container, false);;
+        View v = inflater.inflate(R.layout.fragment_settings, container, false);
 
         btnDropDB = (Button) v.findViewById(R.id.drop_bd_btn);
 
@@ -36,9 +36,10 @@ public class Settings extends Fragment {
             @Override
             public void onClick(View v) {
                 String result = null;
-                if(db.apagarBanco())
+
+                //Esse botão apagara toda a tabela e não o banco.
                     result = "Banco de Dados deletado com sucesso!";
-                else
+
                     result = "Falha ao deletar Banco de Dados!";
 
                 Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();

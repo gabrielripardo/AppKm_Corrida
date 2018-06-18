@@ -19,13 +19,14 @@ import folderapp.bar.Model.CorridaDAO;
 
 public class Meta extends Fragment{
     Context contexto;
-    private Button btnVoltar, btnSalvar;
-    private FloatingActionButton btnIncrement, btnDecrement, btnIncremMin, btnDecremMin;
+    private Button btnIncrement, btnDecrement, btnIncremMin, btnDecremMin;
+    private FloatingActionButton btnFSalvar, btnFCorrer, btnVoltar;
     private TextView tVKm, tVMinutos;
     private TextInputEditText tIETComment;
     private CorridaDAO db;
     // private AppCompatActivity activity;
     private float km = 0;
+
     private DecimalFormat dc;
     private int minutos = 0;
 
@@ -54,16 +55,17 @@ public class Meta extends Fragment{
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_meta, container, false);
 
-        btnVoltar = (Button) v.findViewById(R.id.voltar_btn);
+        //btnVoltar = (Button) v.findViewById(R.id.voltar_btn);
         tVKm = (TextView) v.findViewById(R.id.km_tV); //No xml é EditText mais foi referenciado como TextView.
         tVMinutos = (TextView) v.findViewById(R.id.minutos_eT);
         tIETComment = (TextInputEditText) v.findViewById(R.id.comment_tIET);
-        btnSalvar = (Button) v.findViewById(R.id.correr_btn);
-        btnIncrement = (FloatingActionButton) v.findViewById(R.id.increment_btn);
-        btnDecrement = (FloatingActionButton) v.findViewById(R.id.decrement_btn);
-        btnIncremMin = (FloatingActionButton) v.findViewById(R.id.incremMin_btn);
-        btnDecremMin = (FloatingActionButton) v.findViewById(R.id.decremMin_btn);
-
+        btnFCorrer = (FloatingActionButton) v.findViewById(R.id.correr_btnF);
+        btnFSalvar = (FloatingActionButton) v.findViewById(R.id.salvar_btnF);
+   //     btnIncrement = (Button) v.findViewById(R.id.increment_btn);
+   //     btnDecrement = (Button) v.findViewById(R.id.decrement_btn);
+        btnIncremMin = (Button) v.findViewById(R.id.incremMin_btn);
+        btnDecremMin = (Button) v.findViewById(R.id.decremMin_btn);
+/*
         btnIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +83,7 @@ public class Meta extends Fragment{
                 tVKm.setText(Float.toString(Float.parseFloat(dc.format(km))));
             }
         });
-
+*/
         btnIncremMin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +100,7 @@ public class Meta extends Fragment{
             }
         });
 
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
+        btnFSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 float km = Float.parseFloat(String.valueOf(tVKm.getText()));
@@ -110,14 +112,14 @@ public class Meta extends Fragment{
                 //Toast.makeText(Home.this, "Salvo com sucesso!", Toast.LENGTH_LONG).show();
                 Toast.makeText(getActivity(), "Meta criada com sucesso", Toast.LENGTH_SHORT).show();
             }
-        });
+        });/*
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MainActivity.Transicao.abrirView(getActivity(), Home.newInstance());
             }
         });
-
+*/
         return v;
     }
 }
