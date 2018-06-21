@@ -1,6 +1,7 @@
 package folderapp.bar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
@@ -28,6 +29,7 @@ public class Meta extends Fragment{
     private DecimalFormat dc;
     private int minutos = 0;
     private int horas = 0;
+    private Corrida c;
 
     public static Meta newInstance() {
         Meta fragment = new Meta();
@@ -66,6 +68,8 @@ public class Meta extends Fragment{
         btnDecremMin = (Button) v.findViewById(R.id.decremMin_btn);
         btnIncremHora = (Button) v.findViewById(R.id.incremHora_btn);
         btnDecremHora = (Button) v.findViewById(R.id.decremHora_btn);
+
+
 
         // Seta as informações
         tVHoras.setText("0");
@@ -144,28 +148,35 @@ public class Meta extends Fragment{
         btnFSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                float km = Float.parseFloat(String.valueOf(tVKm.getText()));
-             //   int mi =String.valueOf(tVMinutos.getText());
-                String co = String.valueOf(String.valueOf(tIETComment.getText()));
+            criarMeta();
+            Toast.makeText(getActivity(), "Meta criada com sucesso!", Toast.LENGTH_SHORT).show();
+            MainActivity.Transicao.abrirView(getActivity(), Metas.newInstance());
 
-                Corrida c = new Corrida();
-                c.setMaxKm(km);
-                c.setComment(co);
-                c.setMinutos(minutos, horas);
-
-                db.addCorrida(c);
-                Toast.makeText(getActivity(), "Meta criada com sucesso!", Toast.LENGTH_SHORT).show();
-                MainActivity.Transicao.abrirView(getActivity(), Metas.newInstance());
-
-            }
-        });/*
-        btnVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.Transicao.abrirView(getActivity(), Home.newInstance());
             }
         });
-*/
+        btnFCorrer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(c == null) {
+                        criarMeta();
+                    }
+                    MainActivity.Transicao.setCorrida(c);
+                    Intent intent = new Intent(getActivity(), CorridaActivity.class);
+                    startActivity(intent);
+                }
+            });
+
         return v;
+    }
+    private void criarMeta(){
+        float km = Float.parseFloat(String.valueOf(tVKm.getText()));
+        String co = String.valueOf(String.valueOf(tIETComment.getText()));
+
+        c = new Corrida();
+        c.setMaxKm(km);
+        c.setComment(co);
+        c.setMinutos(minutos, horas);
+
+        db.addCorrida(c);
     }
 }

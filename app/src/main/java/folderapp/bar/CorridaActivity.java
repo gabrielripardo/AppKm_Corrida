@@ -37,7 +37,7 @@ public class CorridaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_corrida);
 
         corrida = MainActivity.Transicao.getCorrida();
-        Log.i("%%%%$$$$$$$", " Id:"+ corrida.getId()+" Km Máximo: "+corrida.getMaxKm());
+//        Log.i("%%%%$$$$$$$", " Id:"+ corrida.getId()+" Km Máximo: "+corrida.getMaxKm());
 
         milliseconds = 0;
 
@@ -49,7 +49,10 @@ public class CorridaActivity extends AppCompatActivity {
         tVtempoMax = (TextView) findViewById(R.id.tempoMax_tV);
 
         kmTxV.setText("KM 0.0/"+corrida.getMaxKm());
-        tVtempoMax.setText(corrida.getMaxTempo());
+
+        String[] tempoLim = corrida.converterMinutos();
+
+        tVtempoMax.setText(tempoLim[0]+ ":" +tempoLim[1]);
 
         btnFIniciar.setEnabled(true);
         btnFParar.setEnabled(false);

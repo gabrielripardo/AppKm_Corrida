@@ -33,7 +33,9 @@
             android:layout_weight="1"
             android:background="@android:color/holo_blue_dark"
             android:text="ToggleButton"
-            android:textColor="@android:color/background_light" />
+            android:textColor="@android:color/background_light"
+            android:textOff="2"
+            android:textOn="21" />
     </LinearLayout>
 
     <ProgressBar

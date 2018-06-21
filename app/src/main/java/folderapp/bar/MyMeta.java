@@ -22,14 +22,15 @@ import folderapp.bar.Model.CorridaDAO;
 public class MyMeta extends Fragment{
     Context contexto;
     private FloatingActionButton btnFSalvar, btnFUpdate, btnFCorrer, btnFIncrement, btnFDecrement;
-    private Button btnIncremMin, btnDecremMin;
+    private Button btnIncremMin, btnDecremMin, btnIncremHora, btnDecremHora;;
     private TextView tVKm, tVMinutos, tVHoras, tVTempoReg, tVHorario, tVCalendar;
     private TextInputEditText tIETComment;
     private CorridaDAO db;
     // private AppCompatActivity activity;
     private float km = 0;
     private DecimalFormat dc;
-    private int minu;
+    private int minutos = 0;
+    private int horas = 0;
     private Corrida corrida;
 
     public static MyMeta newInstance() {
@@ -78,25 +79,33 @@ public class MyMeta extends Fragment{
             tIETComment = (TextInputEditText) v.findViewById(R.id.comment_tIET);
             btnIncremMin = (Button) v.findViewById(R.id.incremMin_btn);
             btnDecremMin = (Button) v.findViewById(R.id.decremMin_btn);
+            btnIncremHora = (Button) v.findViewById(R.id.incremHora_btn);
+            btnDecremHora = (Button) v.findViewById(R.id.decremHora_btn);
             btnFIncrement = (FloatingActionButton) v.findViewById(R.id.increment_btnF);
             btnFDecrement = (FloatingActionButton) v.findViewById(R.id.decrement_btnF);
 
+            km = corrida.getKm();
+
+            String[] tempoMax = corrida.converterMinutos();
+
+            horas = Integer.parseInt(tempoMax[0]);
+            minutos = Integer.parseInt(tempoMax[1]);
             //
 
             //Faz o set nos TextViews
 
             tVKm.setText(String.valueOf(corrida.getMaxKm()));
-            
+
             //Deve pegar o tempo e transformar em horas, futuramente deverá ser do tipo int
-            String minutos = String.valueOf(corrida.getMaxTempo());
-            //Deverá mudar futuramente
-            tVMinutos.setText(minutos);
-            
-            
-            
+            // Seta as informações
+
+            tVHoras.setText(tempoMax[0]);
+            tVMinutos.setText(tempoMax[1]);
+
+
             tIETComment.setText(String.valueOf(corrida.getComment()));
 
-
+            //Controle de Percurso
             btnFIncrement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -109,29 +118,64 @@ public class MyMeta extends Fragment{
             btnFDecrement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Diminui
-                    km = (Float) km - 0.1f;
-                    tVKm.setText(Float.toString(Float.parseFloat(dc.format(km))));
+                    if(km >= 0.1f) {
+                        // Diminui
+                        km = (Float) km - 0.1f;
+                        tVKm.setText(Float.toString(Float.parseFloat(dc.format(km))));
+                    }
                 }
             });
+
+            //Controle de horas
+            btnIncremHora.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    horas++;
+                    tVHoras.setText(String.valueOf(horas));
+                }
+            });
+
+            btnDecremHora.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(horas>=1) {
+                        horas--;
+                        tVHoras.setText(String.valueOf(horas));
+                    }
+                }
+            });
+
+            //Controle de minutos
             btnIncremMin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    minu++;
-                    tVMinutos.setText(String.valueOf(minu));
+                    minutos++;
+                    if(minutos >= 60){
+                        horas++;
+                        minutos = 0;
+                        tVHoras.setText(String.valueOf(horas));
+                    }
+
+                    tVMinutos.setText(String.valueOf(minutos));
                 }
             });
 
             btnDecremMin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    minu = minu - 1;
-                    tVMinutos.setText(String.valueOf(minu));
+                    if(minutos >= 1 || horas >=1) {
+                        minutos--;
+                        if (minutos <= -1) {
+                            minutos = 59;
+                            horas--;
+                        }
+                        tVMinutos.setText(String.valueOf(minutos));
+                        tVHoras.setText(String.valueOf(horas));
+                    }
                 }
             });
-            
 
-    
+
             btnFSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -141,6 +185,7 @@ public class MyMeta extends Fragment{
 
                     corrida.setMaxKm(Float.parseFloat(String.valueOf(tVKm.getText())));
                     corrida.setTempo(String.valueOf(tVMinutos.getText()));
+                    corrida.setMinutos(minutos, horas);
                     corrida.setComment(String.valueOf(tIETComment.getText()));
 
 
@@ -155,10 +200,11 @@ public class MyMeta extends Fragment{
             btnFCorrer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    corrida.setComment(String.valueOf(tIETComment.getText()));
+
                     MainActivity.Transicao.setCorrida(corrida);
                     Intent intent = new Intent(getActivity(), CorridaActivity.class);
                     startActivity(intent);
+
                 }
             });
         }else {
@@ -171,14 +217,14 @@ public class MyMeta extends Fragment{
             tIETComment = (TextInputEditText) v.findViewById(R.id.comment_upd_tIET);
             tVKm = (TextView) v.findViewById(R.id.meta_km_tV);
             tVMinutos = (TextView) v.findViewById(R.id.max_tempo_tV);
-            
+
             corrida = db.carregarCorridaFinalizada(corrida.getId());
 
             tVTempoReg.setText(corrida.getTempo());
             tVHorario.setText(corrida.getHorario());
             tVCalendar.setText(corrida.getdiaMesAno());
             tVKm.setText(String.valueOf(corrida.getMaxKm()));
-            tVMinutos.setText(corrida.getMaxTempo());
+            tVMinutos.setText(String.valueOf(corrida.getMaxTempo()));
             tIETComment.setText(corrida.getComment());
 
             ///Implementar o botão de correr novamente;
@@ -192,7 +238,7 @@ public class MyMeta extends Fragment{
                     Toast.makeText(getContext(), "Comentário salvado com sucesso!", Toast.LENGTH_LONG).show();
                 }
             });
-            
+
         }
         Log.i("%%%%$$$$$$###########", "Tempo: "+corrida.getTempo());
         return v;

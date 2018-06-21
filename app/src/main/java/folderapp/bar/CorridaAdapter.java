@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -79,6 +80,7 @@ public class CorridaAdapter extends ArrayAdapter<Corrida> {
 				c.setId(elementos.get(position).getId());
 				db.apagarCorrida(c);
 				MainActivity.Transicao.abrirView(fragActy, Metas.newInstance());
+				Toast.makeText(getContext(), "Meta deletada com sucesso!", Toast.LENGTH_LONG).show();
 
             }
         });
