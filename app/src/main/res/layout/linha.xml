@@ -57,7 +57,7 @@
 		app:layout_constraintVertical_bias="0.0" />
 
 	<ImageView
-		android:id="@+id/imagem"
+		android:id="@+id/status_iV"
 		android:layout_width="51dp"
 		android:layout_height="78dp"
 		android:layout_margin="5dp"
@@ -65,7 +65,7 @@
 		android:layout_marginEnd="4dp"
 		android:layout_marginTop="16dp"
 		android:scaleType="fitXY"
-		android:src="@drawable/ic_offmascote"
+		android:src="@drawable/corrida_off"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintTop_toTopOf="parent"
@@ -79,7 +79,7 @@
 		android:layout_marginEnd="8dp"
 		android:orientation="horizontal"
 		app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-		app:layout_constraintEnd_toStartOf="@+id/imagem">
+		app:layout_constraintEnd_toStartOf="@+id/status_iV">
 
 		<TextView
 			android:id="@+id/maxTempo_tV"

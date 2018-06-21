@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CorridaDAO extends SQLiteOpenHelper{
     private static final int VERSAO_BANCO = 1;
-    private static String BANCO = "bd_kmcorridaapp";
+    private static String BANCO = "bd_km_corrida_app";
 
     private static final String TABELA_CORRIDA = "tb_corridas";
     
@@ -41,7 +41,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         String QUERY_COLUNA = "CREATE TABLE " + TABELA_CORRIDA + "("
                 + COLUNA_CODIGO + " INTEGER PRIMARY KEY, " + COLUNA_COMENTARIO + " TEXT,"
-                + COLUNA_MAXKM + " TEXT, " + COLUNA_MAXTEMPO + " TEXT," + COLUNA_TEMPO +" TEXT,"+ COLUNA_FINALIZADA +" INTEGER,"+ COLUNA_HORARIO+" TEXT,"+ COLUNA_CALENDAR+ " TEXT,"+ COLUNA_HORARIO+"TEXT,"+
+                + COLUNA_MAXKM + " REAL, " + COLUNA_MAXTEMPO + " INTEGER," + COLUNA_TEMPO +" TEXT,"+ COLUNA_FINALIZADA +" INTEGER,"+ COLUNA_HORARIO+" TEXT,"+ COLUNA_CALENDAR+ " TEXT,"+ COLUNA_HORARIO+"TEXT,"+
                 COLUNA_KMPercorrido+" TEXT)";
 
         db.execSQL(QUERY_COLUNA);
@@ -69,25 +69,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
         db.insert(TABELA_CORRIDA, null, values);
         db.close();
     }
-    /*
-    public void addCorridaFinalizada(Corrida corrida){
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-
-        values.put(COLUNA_COMENTARIO, corrida.getComment());
-        values.put(COLUNA_MAXKM, corrida.getMaxKm());
-        values.put(COLUNA_MAXTEMPO, corrida.getMaxTempo());
-        values.put(COLUNA_TEMPO, corrida.getTempo());
-        int finalizada = 0;
-        if(corrida.isFinalizada()==true)
-            finalizada = 1;
-        values.put(COLUNA_FINALIZADA, finalizada);
-
-        db.insert(TABELA_CORRIDA, null, values);
-        db.close();
-    }*/
     public Corrida carregarCorrida(Corrida corrObj){
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -100,7 +82,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
         }
         try {
             Corrida corrida = new Corrida(Integer.parseInt(cursor.getString(0)),
-                    cursor.getString(1), Float.parseFloat(cursor.getString(2)), cursor.getString(3));
+                    cursor.getString(1), Float.parseFloat(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
 
             if(corrObj.isFinalizada())
                 if(Integer.parseInt(cursor.getString(4))==1){
@@ -127,7 +109,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
         try {
             //Criação de objeto e popularização
             Corrida corrida = new Corrida(Integer.parseInt(cursor.getString(0)),
-                    cursor.getString(1), Float.parseFloat(cursor.getString(2)), cursor.getString(3));
+                    cursor.getString(1), Float.parseFloat(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
             corrida.setTempo(cursor.getString(4));
             if(Integer.parseInt(cursor.getString(5))==1){
                 corrida.setFinalizada(true);
@@ -196,7 +178,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
                 corrida.setId(Integer.parseInt(c.getString(0)));
                 corrida.setComment(c.getString(1));
                 corrida.setMaxKm(Float.parseFloat(c.getString(2)));
-                corrida.setMaxTempo(c.getString(3));
+                corrida.setMaxTempo(Integer.parseInt(c.getString(3)));
                 if(c.getString(5)!=null) {
                     if (Integer.parseInt(c.getString(5)) == 1)
                         corrida.setFinalizada(true);
@@ -208,5 +190,24 @@ public class CorridaDAO extends SQLiteOpenHelper{
             }while(c.moveToNext());
         }
         return listaCorridas;
+    }
+    public boolean isEmpty(){
+        List<Corrida> listaCorridas = new ArrayList<Corrida>();
+
+        String query = "SELECT * FROM " + TABELA_CORRIDA+" ORDER BY "+COLUNA_CODIGO+" DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+
+        if(c.moveToFirst()){
+            return false;
+        }
+        return true;
+    }
+    public void deletarRegs(){
+        SQLiteDatabase dbSQL = this.getWritableDatabase();
+        dbSQL.execSQL("DELETE FROM "+TABELA_CORRIDA);
+
+        dbSQL.close();
     }
 }

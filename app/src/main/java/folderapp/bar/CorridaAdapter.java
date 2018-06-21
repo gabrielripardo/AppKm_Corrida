@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -57,27 +58,26 @@ public class CorridaAdapter extends ArrayAdapter<Corrida> {
 
 		TextView tVmaxKm = (TextView) rowView.findViewById(R.id.maxKm_tV);
 		TextView tVmaxTempo = (TextView) rowView.findViewById(R.id.maxTempo_tV);
-
+		ImageView imagem = (ImageView) rowView.findViewById(R.id.status_iV);
 		final Button btnDeletar = (Button) rowView.findViewById(R.id.deletar_btn);
 
 		tVmaxKm.setText(String.valueOf(elementos.get(position).getMaxKm()));
-		tVmaxTempo.setText(elementos.get(position).getMaxTempo());
-		//imagem.setImageResource(elementos.get(position).getImagem());
+		tVmaxTempo.setText(String.valueOf(elementos.get(position).getMaxTempo()));
 
-		/*
-        final Intent intent0 = new Intent();
-        intent0.setClass(context, MainActivity.class);
-		final Intent intent1 = new Intent();
-		intent1.setClass(context, MetasList.class);
-		*/
+		//Através do atributo "finalizada" é gerado uma String com a imagem de referência.
+		if(elementos.get(position).isFinalizada()){
+			imagem.setImageResource(R.drawable.corrida_on);
+		}
 
 		btnDeletar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnDeletar.setTextColor(Color.RED);
 				//code
-				db.apagarCorrida(new Corrida(elementos.get(position).getId(), elementos.get(position).getComment(), elementos.get(position).getMaxKm(), elementos.get(position).getMaxTempo()));
-
+				//db.apagarCorrida(new Corrida(elementos.get(position).getId(), elementos.get(position).getComment(), elementos.get(position).getMaxKm(), elementos.get(position).getMaxTempo()));
+				Corrida c = new Corrida();
+				c.setId(elementos.get(position).getId());
+				db.apagarCorrida(c);
 				MainActivity.Transicao.abrirView(fragActy, Metas.newInstance());
 
             }

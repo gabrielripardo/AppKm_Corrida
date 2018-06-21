@@ -55,84 +55,120 @@
         android:layout_width="match_parent"
         android:layout_height="168dp">
 
-        <TextView
-            android:id="@+id/textView"
+        <LinearLayout
+            android:id="@+id/linearLayout8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="108dp"
-            android:layout_marginTop="16dp"
-            android:text=" Tempo: "
-            android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/iniciar_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <Chronometer
-            android:id="@+id/cronometro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="72dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="00"
-            android:textSize="30sp"
+            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.085"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/iniciar_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="52dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
-            android:text="Iniciar"
-            android:textAllCaps="false"
-            android:typeface="monospace"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/pausar_btn"
+            <TextView
+                android:id="@+id/tipo_tV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:text=" Tempo: "
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Chronometer
+                android:id="@+id/cronometro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:text="00"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.085"
+                app:layout_constraintStart_toEndOf="@+id/tipo_tV"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:text="/"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/tempoMax_tV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="52dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
-            android:text="Pausar"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/parar_btn"
-            app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toEndOf="@+id/iniciar_btn"
-            app:layout_constraintTop_toBottomOf="@+id/cronometro"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <Button
-            android:id="@+id/parar_btn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="52dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif"
-            android:text="Parar"
-            android:textAllCaps="false"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
-            tools:text="Parar" />
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
+            app:layout_constraintVertical_bias="0.0">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/parar_btnF"
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="0dp"
+                android:layout_marginStart="0dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                app:backgroundTint="@android:color/background_light"
+                app:srcCompat="@drawable/ic_stop"
+                tools:layout_editor_absoluteX="308dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/iniciar_btnF"
+                android:layout_width="93dp"
+                android:layout_height="93dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="28dp"
+                android:layout_marginStart="28dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                app:backgroundTint="@android:color/background_light"
+                app:srcCompat="@drawable/ic_play"
+                tools:layout_editor_absoluteX="40dp"
+                tools:layout_editor_absoluteY="16dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pausar_btnF"
+                android:layout_width="73dp"
+                android:layout_height="73dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:clickable="true"
+                app:backgroundTint="@android:color/background_light"
+                app:srcCompat="@drawable/ic_pause"
+                tools:layout_editor_absoluteX="260dp"
+                tools:layout_editor_absoluteY="16dp" />
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 

@@ -11,73 +11,85 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/correrAgora_btn"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:layout_marginBottom="124dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="116dp"
-            android:layout_marginTop="8dp"
-            android:background="#778696"
-            android:src="@drawable/ic_correr_agora"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/definirMeta_btnF"
+            android:layout_width="113dp"
+            android:layout_height="115dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="88dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/ic_btn_criarmeta"
+            app:backgroundTint="@android:color/holo_blue_dark"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.009"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/definirMeta_btn"
-            app:layout_constraintVertical_bias="0.789" />
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageButton
-            android:id="@+id/definirMeta_btn"
-            android:layout_width="150dp"
-            android:layout_height="70dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="116dp"
-            android:layout_marginTop="8dp"
-            android:background="#5f7279"
-            android:src="@drawable/ic_criar_meta"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <LinearLayout
+            android:id="@+id/linearLayout11"
+            android:layout_width="252dp"
+            android:layout_height="103dp"
+            android:layout_marginBottom="56dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/definirMeta_btnF"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.454" />
+            app:layout_constraintHorizontal_bias="0.48"
+            app:layout_constraintStart_toEndOf="@+id/imageView2">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="84dp"
-            android:layout_marginTop="48dp"
-            android:text="Criar Meta"
-            android:textColor="#ffffffff"
-            app:layout_constraintBottom_toBottomOf="@+id/definirMeta_btn"
-            app:layout_constraintEnd_toEndOf="@+id/definirMeta_btn"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/definirMeta_btn"
-            app:layout_constraintTop_toTopOf="@+id/definirMeta_btn"
-            app:layout_constraintVertical_bias="0.0" />
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="48dp"
-            android:text="Correr Agora"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/correrAgora_btn"
-            app:layout_constraintEnd_toEndOf="@+id/correrAgora_btn"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/correrAgora_btn"
-            app:layout_constraintTop_toTopOf="@+id/correrAgora_btn"
-            app:layout_constraintVertical_bias="0.0" />
+                <ImageView
+                    android:id="@+id/fundoTempo2"
+                    android:layout_width="267dp"
+                    android:layout_height="204dp"
+                    android:layout_weight="1"
+                    android:background="@android:drawable/alert_light_frame"
+
+                    android:scaleType="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.769" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Meta:"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout11"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_shoe_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.025"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
+
+        <TextView
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="15dp"
             android:layout_marginStart="12dp"
@@ -90,18 +102,18 @@
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="124dp"
             android:layout_marginStart="12dp"
             android:layout_marginTop="48dp"
-            android:text="TextView"
+            android:text="Tempo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.009"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageButton3"
-            app:layout_constraintTop_toBottomOf="@+id/textView20"
-            tools:text="Metas Cumpridas:" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:text="Tempo" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/nome_tV"
             android:layout_width="128dp"
             android:layout_height="65dp"
             android:layout_marginEnd="36dp"
@@ -110,9 +122,19 @@
             android:text="João "
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView20"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="52dp"
+            android:layout_height="62dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:src="@drawable/ic_goal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
         <ImageButton
             android:id="@+id/imageButton3"
@@ -136,7 +158,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.894"
             app:layout_constraintStart_toStartOf="@+id/textView21"
-            app:layout_constraintTop_toBottomOf="@+id/textView22" />
+            app:layout_constraintTop_toBottomOf="@+id/nome_tV" />
 
     </android.support.constraint.ConstraintLayout>
 

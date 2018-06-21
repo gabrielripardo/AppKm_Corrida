@@ -44,6 +44,7 @@ public class PerfilDAO extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //No code;
+
     }
     public void addPerfil(Perfil perfil){
 
@@ -58,12 +59,12 @@ public class PerfilDAO extends SQLiteOpenHelper{
         db.close();
     }
 
-    public Perfil carregarPerfil(Perfil corrObj){
+    public Perfil carregarPerfil(int id){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABELA_PERFIL, new String[] {COLUNA_CODIGO, COLUNA_NOME,
                         COLUNA_FOTO}, COLUNA_CODIGO + " = ?",
-                new String[] {String.valueOf(corrObj.getId())}, null, null, null, null);
+                new String[] {String.valueOf(id)}, null, null, null, null);
 
         if(cursor != null){
             cursor.moveToFirst();
@@ -84,24 +85,18 @@ public class PerfilDAO extends SQLiteOpenHelper{
         db.delete(TABELA_PERFIL, COLUNA_CODIGO + " =?", new String[] { String.valueOf(perfil.getId())});
 
         db.close();
-    }/*
+    }
     public void atualizarPerfil(Perfil perfil){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUNA_COMENTARIO, perfil.getComment());
-        values.put(COLUNA_MAXKM, perfil.getMaxKm());
-        values.put(COLUNA_MAXTEMPO, perfil.getMaxTempo());
-        values.put(COLUNA_TEMPO, perfil.getTempo());
-        int finalizada = 0;
-        if(perfil.isFinalizada())
-            finalizada = 1;
-        values.put(COLUNA_FINALIZADA, finalizada);
+        values.put(COLUNA_NOME, perfil.getNome());
+        values.put(COLUNA_FOTO, perfil.getFoto());
 
-        db.update(TABELA_CORRIDA, values, COLUNA_CODIGO + " = ?",
+        db.update(TABELA_PERFIL, values, COLUNA_CODIGO + " = ?",
                 new String[] { String.valueOf(perfil.getId())});
     }
-    */
+
     public List<Perfil> listarTodasPerfis(){
         List<Perfil> listaPerfis = new ArrayList<Perfil>();
 
@@ -123,5 +118,24 @@ public class PerfilDAO extends SQLiteOpenHelper{
             }while(c.moveToNext());
         }
         return listaPerfis;
+    }
+    public boolean isEmpty(){
+        List<Perfil> listaPerfis = new ArrayList<Perfil>();
+
+        String query = "SELECT * FROM " + TABELA_PERFIL;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+
+        if(c.moveToFirst()){
+            return false;
+        }
+        return true;
+    }
+    public void deletarRegistros(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+TABELA_PERFIL);
+
+        db.close();
     }
 }

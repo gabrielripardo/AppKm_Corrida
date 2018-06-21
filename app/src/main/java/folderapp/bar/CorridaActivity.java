@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -24,8 +25,8 @@ import folderapp.bar.Model.CorridaDAO;
 
 public class CorridaActivity extends AppCompatActivity {
     private Corrida corrida;
-    private TextView kmTxV;
-    private Button btnIniciar, btnParar, btnPausar;
+    private TextView kmTxV, tVtempoMax;
+    private FloatingActionButton btnFIniciar, btnFParar, btnFPausar;
     private Chronometer cronometro;
     private long milliseconds;
     private CorridaDAO bd = new CorridaDAO(this);
@@ -40,17 +41,19 @@ public class CorridaActivity extends AppCompatActivity {
 
         milliseconds = 0;
 
-        btnIniciar = (Button) findViewById(R.id.iniciar_btn);
-        btnParar = (Button) findViewById(R.id.parar_btn);
-        btnPausar = (Button) findViewById(R.id.pausar_btn);
+        btnFIniciar = (FloatingActionButton) findViewById(R.id.iniciar_btnF);
+        btnFParar = (FloatingActionButton) findViewById(R.id.parar_btnF);
+        btnFPausar = (FloatingActionButton) findViewById(R.id.pausar_btnF);
         cronometro = (Chronometer) findViewById(R.id.cronometro);
         kmTxV = (TextView) findViewById(R.id.km_max_tv);
+        tVtempoMax = (TextView) findViewById(R.id.tempoMax_tV);
 
         kmTxV.setText("KM 0.0/"+corrida.getMaxKm());
+        tVtempoMax.setText(corrida.getMaxTempo());
 
-        btnIniciar.setEnabled(true);
-        btnParar.setEnabled(false);
-        btnPausar.setEnabled(false);
+        btnFIniciar.setEnabled(true);
+        btnFParar.setEnabled(false);
+        btnFPausar.setEnabled(false);
 
         //Marca a data de largada
         long date = System.currentTimeMillis();
@@ -69,31 +72,30 @@ public class CorridaActivity extends AppCompatActivity {
 
         Log.i("###############", "Horário: " + corrida.getHorario());
 
-        btnIniciar.setOnClickListener(new View.OnClickListener() {
+        btnFIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                btnFIniciar.setImageResource(R.drawable.ic_play_off);
 
-                btnIniciar.setBackgroundColor(Color.GREEN);
-                btnIniciar.setEnabled(false);
-                btnPausar.setEnabled(true);
-                btnParar.setEnabled(true);
+                btnFIniciar.setEnabled(false);
+                btnFPausar.setImageResource(R.drawable.ic_pause);
+                btnFPausar.setEnabled(true);
+                btnFParar.setEnabled(true);
 
                 cronometro.setBase(SystemClock.elapsedRealtime() - milliseconds);
                 cronometro.start();
-
-
             }
         });
-        btnParar.setOnClickListener(new View.OnClickListener() {
+        btnFParar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 corrida.setFinalizada(true);
 
                 //Comportamento dos botões
-                btnParar.setBackgroundColor(Color.RED);
-                btnIniciar.setEnabled(false);
-                btnParar.setEnabled(false);
-                btnPausar.setEnabled(false);
+                btnFParar.setImageResource(R.drawable.ic_stop_off);
+                btnFIniciar.setEnabled(false);
+                btnFParar.setEnabled(false);
+                btnFPausar.setEnabled(false);
 
                 //Cronometro deve parar e guardar seu valor no objeto Corrida
                 cronometro.stop();
@@ -118,12 +120,15 @@ public class CorridaActivity extends AppCompatActivity {
                 */
             }
         });
-        btnPausar.setOnClickListener(new View.OnClickListener() {
+        btnFPausar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                btnPausar.setBackgroundColor(Color.YELLOW);
-                btnPausar.setEnabled(false);
-                btnIniciar.setEnabled(true);
+                btnFPausar.setBackgroundColor(Color.parseColor("#2e2e2e"));
+                btnFPausar.setImageResource(R.drawable.ic_pause_off);
+               // btnFPausar.setBackgroundColor(Color.YELLOW);
+                btnFPausar.setEnabled(false);
+                btnFIniciar.setImageResource(R.drawable.ic_play);
+                btnFIniciar.setEnabled(true);
                 milliseconds = SystemClock.elapsedRealtime() - cronometro.getBase();
                 cronometro.stop();
             }

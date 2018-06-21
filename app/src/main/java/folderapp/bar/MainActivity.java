@@ -23,6 +23,8 @@ import folderapp.bar.Model.Perfil;
 import folderapp.bar.Model.PerfilDAO;
 
 public class MainActivity extends AppCompatActivity {
+    protected PerfilDAO perfilDb;
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -66,15 +68,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        perfilDb = new PerfilDAO(getApplicationContext());
+        perfilDb.listarTodasPerfis();
+        if(perfilDb.isEmpty()){
+            startActivity(new Intent(MainActivity.this, MeuPerfil.class));
+        }else {
+            BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        //Manually displaying the first fragment - one time only
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, Home.newInstance());
-        transaction.commit();
+            //Manually displaying the first fragment - one time only
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_layout, Home.newInstance());
+            transaction.commit();
+        }
     }
     public static class Transicao{
         public static Corrida crdObj;

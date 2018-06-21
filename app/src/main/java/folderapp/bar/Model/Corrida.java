@@ -6,7 +6,7 @@ public class Corrida {
     private int id;
     private String comment;
     private float maxKm;
-    private String maxTempo;
+    private int maxTempo;
     private float km; // Sistema que introduz no banco //API Location ou algum outro sensor que detecta movimentação.
     private String tempo; // Sistema que introduz no banco
     private String diaMesAno; //Sistema que introduz no banco
@@ -17,20 +17,20 @@ public class Corrida {
 
     }
 
-    public Corrida(String comment, float maxKm, String maxTempo){
+    public Corrida(String comment, float maxKm, int maxTempo){
         this.comment = comment;
         this.maxKm = maxKm;
         this.maxTempo = maxTempo;
     }
 
-    public Corrida(int id, String comment, float maxKm, String maxTempo) {
+    public Corrida(int id, String comment, float maxKm, int maxTempo) {
         this.id = id;
         this.comment = comment;
         this.maxKm = maxKm;
         this.maxTempo = maxTempo;
     }
 
-    public Corrida(String comment, float maxKm, float km, String maxTempo, String tempo, String diaMesAno, String horario, boolean finalizada) {
+    public Corrida(String comment, float maxKm, float km, int maxTempo, String tempo, String diaMesAno, String horario, boolean finalizada) {
         this.comment = comment;
         this.maxKm = maxKm;
         this.km = km;
@@ -41,7 +41,7 @@ public class Corrida {
         this.finalizada = finalizada;
     }
 
-    public Corrida(int id, String comment, float maxKm, float km, String maxTempo, String tempo, String diaMesAno, String horario, boolean finalizada) {
+    public Corrida(int id, String comment, float maxKm, float km, int maxTempo, String tempo, String diaMesAno, String horario, boolean finalizada) {
         this.id = id;
         this.comment = comment;
         this.maxKm = maxKm;
@@ -85,11 +85,11 @@ public class Corrida {
         this.km = km;
     }
 
-    public String getMaxTempo() {
+    public int getMaxTempo() {
         return maxTempo;
     }
 
-    public void setMaxTempo(String maxTempo) {
+    public void setMaxTempo(int maxTempo) {
         this.maxTempo = maxTempo;
     }
 
@@ -123,6 +123,20 @@ public class Corrida {
 
     public void setFinalizada(boolean finalizada) {
         this.finalizada = finalizada;
+    }
+
+    public String[] converterMinutos() {
+
+        int minutos = this.getMaxTempo();
+        int horas;
+
+        horas = minutos/60;
+        minutos = (minutos-(60*horas));
+
+        return new String[]{String.valueOf(horas), String.valueOf(minutos)};
+    }
+    public void setMinutos(int minutos, int horas){
+        this.setMaxTempo(minutos+horas*60);
     }
 }
 

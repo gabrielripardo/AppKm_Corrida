@@ -19,21 +19,19 @@ import folderapp.bar.Model.CorridaDAO;
 
 public class Meta extends Fragment{
     Context contexto;
-    private Button btnIncrement, btnDecrement, btnIncremMin, btnDecremMin;
-    private FloatingActionButton btnFSalvar, btnFCorrer, btnVoltar;
-    private TextView tVKm, tVMinutos;
+    private Button btnIncremMin, btnDecremMin, btnIncremHora, btnDecremHora;
+    private FloatingActionButton btnFSalvar, btnFCorrer, btnFIncrement, btnFDecrement;
+    private TextView tVKm, tVMinutos, tVHoras;
     private TextInputEditText tIETComment;
     private CorridaDAO db;
-    // private AppCompatActivity activity;
     private float km = 0;
-
     private DecimalFormat dc;
     private int minutos = 0;
+    private int horas = 0;
 
     public static Meta newInstance() {
         Meta fragment = new Meta();
         return fragment;
-
     }
     @Override
     public void onAttach(Context context){
@@ -58,15 +56,23 @@ public class Meta extends Fragment{
         //btnVoltar = (Button) v.findViewById(R.id.voltar_btn);
         tVKm = (TextView) v.findViewById(R.id.km_tV); //No xml é EditText mais foi referenciado como TextView.
         tVMinutos = (TextView) v.findViewById(R.id.minutos_eT);
+        tVHoras= (TextView) v.findViewById(R.id.horas_eT);
         tIETComment = (TextInputEditText) v.findViewById(R.id.comment_tIET);
         btnFCorrer = (FloatingActionButton) v.findViewById(R.id.correr_btnF);
         btnFSalvar = (FloatingActionButton) v.findViewById(R.id.salvar_btnF);
-   //     btnIncrement = (Button) v.findViewById(R.id.increment_btn);
-   //     btnDecrement = (Button) v.findViewById(R.id.decrement_btn);
+        btnFIncrement = (FloatingActionButton) v.findViewById(R.id.increment_btnF);
+        btnFDecrement = (FloatingActionButton) v.findViewById(R.id.decrement_btnF);
         btnIncremMin = (Button) v.findViewById(R.id.incremMin_btn);
         btnDecremMin = (Button) v.findViewById(R.id.decremMin_btn);
-/*
-        btnIncrement.setOnClickListener(new View.OnClickListener() {
+        btnIncremHora = (Button) v.findViewById(R.id.incremHora_btn);
+        btnDecremHora = (Button) v.findViewById(R.id.decremHora_btn);
+
+        // Seta as informações
+        tVHoras.setText("0");
+        tVMinutos.setText("0");
+
+        //Controle de Percurso
+        btnFIncrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Acrescenta
@@ -75,19 +81,47 @@ public class Meta extends Fragment{
             }
         });
 
-        btnDecrement.setOnClickListener(new View.OnClickListener() {
+        btnFDecrement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Diminui
-                km = (Float) km - 0.1f;
-                tVKm.setText(Float.toString(Float.parseFloat(dc.format(km))));
+                if(km >= 0.1f) {
+                    // Diminui
+                    km = (Float) km - 0.1f;
+                    tVKm.setText(Float.toString(Float.parseFloat(dc.format(km))));
+                }
             }
         });
-*/
+
+        //Controle de horas
+        btnIncremHora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                horas++;
+                tVHoras.setText(String.valueOf(horas));
+            }
+        });
+
+        btnDecremHora.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(horas>=1) {
+                    horas--;
+                    tVHoras.setText(String.valueOf(horas));
+                }
+            }
+        });
+
+        //Controle de minutos
         btnIncremMin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                minutos = minutos + 1;
+                minutos++;
+                if(minutos >= 60){
+                    horas++;
+                    minutos = 0;
+                    tVHoras.setText(String.valueOf(horas));
+                }
+
                 tVMinutos.setText(String.valueOf(minutos));
             }
         });
@@ -95,8 +129,15 @@ public class Meta extends Fragment{
         btnDecremMin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                minutos = minutos - 1;
-                tVMinutos.setText(String.valueOf(minutos));
+                if(minutos >= 1 || horas >=1) {
+                    minutos--;
+                    if (minutos <= -1) {
+                        minutos = 59;
+                        horas--;
+                    }
+                    tVMinutos.setText(String.valueOf(minutos));
+                    tVHoras.setText(String.valueOf(horas));
+                }
             }
         });
 
@@ -104,13 +145,18 @@ public class Meta extends Fragment{
             @Override
             public void onClick(View v) {
                 float km = Float.parseFloat(String.valueOf(tVKm.getText()));
-                String mi = String.valueOf(String.valueOf(tVMinutos.getText()));
+             //   int mi =String.valueOf(tVMinutos.getText());
                 String co = String.valueOf(String.valueOf(tIETComment.getText()));
 
+                Corrida c = new Corrida();
+                c.setMaxKm(km);
+                c.setComment(co);
+                c.setMinutos(minutos, horas);
 
-                db.addCorrida(new Corrida(co, km, mi));
-                //Toast.makeText(Home.this, "Salvo com sucesso!", Toast.LENGTH_LONG).show();
-                Toast.makeText(getActivity(), "Meta criada com sucesso", Toast.LENGTH_SHORT).show();
+                db.addCorrida(c);
+                Toast.makeText(getActivity(), "Meta criada com sucesso!", Toast.LENGTH_SHORT).show();
+                MainActivity.Transicao.abrirView(getActivity(), Metas.newInstance());
+
             }
         });/*
         btnVoltar.setOnClickListener(new View.OnClickListener() {

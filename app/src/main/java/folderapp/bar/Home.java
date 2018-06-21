@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,16 @@ import java.text.DecimalFormat;
 
 import folderapp.bar.Model.Corrida;
 import folderapp.bar.Model.CorridaDAO;
+import folderapp.bar.Model.Perfil;
+import folderapp.bar.Model.PerfilDAO;
 
 public class Home extends Fragment{
     Context contexto;
-    private ImageButton btnCorrer, btnMeta;
+    private FloatingActionButton btnFMeta;
+    private TextView tVNome;
     private TextView tVKm, tVMinutos;
     private CorridaDAO db;
+    private PerfilDAO dbPerfil;
     // private AppCompatActivity activity;
 
     public static Home newInstance() {
@@ -43,6 +48,8 @@ public class Home extends Fragment{
         super.onCreate(savedInstanceState);
 
         db = new CorridaDAO(getActivity());
+        dbPerfil = new PerfilDAO(getActivity());
+
 
     }
 
@@ -51,17 +58,13 @@ public class Home extends Fragment{
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container, false);
 
-        btnCorrer = (ImageButton) v.findViewById(R.id.correrAgora_btn);
-        btnMeta = (ImageButton) v.findViewById(R.id.definirMeta_btn); //No xml é EditText mais foi referenciado como TextView.
+        tVNome = (TextView) v.findViewById(R.id.nome_tV);
+        btnFMeta = (FloatingActionButton) v.findViewById(R.id.definirMeta_btnF);
 
-        btnCorrer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Funcionalidade não implementada!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        tVNome.setText(dbPerfil.carregarPerfil(1).getNome());
 
-        btnMeta.setOnClickListener(new View.OnClickListener() {
+
+        btnFMeta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Criar uma meta

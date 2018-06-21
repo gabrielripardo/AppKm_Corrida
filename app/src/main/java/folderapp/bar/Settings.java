@@ -1,5 +1,6 @@
 package folderapp.bar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,11 +9,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import folderapp.bar.Model.Corrida;
 import folderapp.bar.Model.CorridaDAO;
+import folderapp.bar.Model.Perfil;
+import folderapp.bar.Model.PerfilDAO;
 
 public class Settings extends Fragment {
-    private Button btnDropDB;
-    private CorridaDAO db = new CorridaDAO(getContext());
+    private Button btnDelPerfil, btnDelCorridas;
+    private CorridaDAO dbCorrida;
+    private PerfilDAO dbPerfil;
 
     public static Settings newInstance() {
         Settings fragment = new Settings();
@@ -22,6 +27,8 @@ public class Settings extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbPerfil = new PerfilDAO(getActivity());
+        dbCorrida = new CorridaDAO(getContext());
     }
 
     @Override
@@ -30,21 +37,40 @@ public class Settings extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        btnDropDB = (Button) v.findViewById(R.id.drop_bd_btn);
+        btnDelPerfil = (Button) v.findViewById(R.id.perfilDel_btn);
+        btnDelCorridas = (Button) v.findViewById(R.id.corridasDel_btn);
 
-        btnDropDB.setOnClickListener(new View.OnClickListener() {
+        btnDelCorridas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String result = null;
+                //Code
+                String result;
+                dbCorrida.deletarRegs();
 
-                //Esse botão apagara toda a tabela e não o banco.
-                    result = "Banco de Dados deletado com sucesso!";
+                if(dbCorrida.isEmpty()) {
+                    result = "Corridas apagadas com sucesso!";
 
-                    result = "Falha ao deletar Banco de Dados!";
-
+                }else
+                    result = "Erro ao apagar corridas!\n Clique em Ajuda";
                 Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
             }
         });
+
+        btnDelPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String result;
+                dbPerfil.deletarRegistros();
+
+                if(dbPerfil.isEmpty()) {
+                    result = "Perfil apagado com sucesso!";
+                    startActivity(new Intent(getActivity(), MeuPerfil.class));
+                }else
+                    result = "Erro ao apagar perfil!\n Clique em Ajuda";
+                Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         return v;
     }

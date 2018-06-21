@@ -33,11 +33,14 @@ public class Help extends Fragment {
         return v;
     }
     public void abrirPagina(){
-        String url = "http://google.com"; //Preciso inserir um html existente no projeto.
+        //String url = "http://google.com"; //Preciso inserir um html existente no projeto.
         page.getSettings().setLoadsImagesAutomatically(true);
         page.getSettings().setJavaScriptEnabled(true);
         page.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        page.loadUrl(url);
+        page.getSettings().setBuiltInZoomControls(true);
+        //page.loadUrl("file:///android_asset/web/index.html");
+        page.loadUrl("file:///android_asset/help.html");
+
     }
     private class MyBrowser extends WebViewClient{
         public boolean overrideUrlLoading(WebView view, String url){

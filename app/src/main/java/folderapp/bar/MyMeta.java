@@ -21,14 +21,15 @@ import folderapp.bar.Model.CorridaDAO;
 
 public class MyMeta extends Fragment{
     Context contexto;
-    private Button btnVoltar, btnSalvar, btnCorrer;
-    private TextView tVKm, tVMaxTempo, tVTempoReg, tVHorario, tVCalendar;
+    private FloatingActionButton btnFSalvar, btnFUpdate, btnFCorrer, btnFIncrement, btnFDecrement;
+    private Button btnIncremMin, btnDecremMin;
+    private TextView tVKm, tVMinutos, tVHoras, tVTempoReg, tVHorario, tVCalendar;
     private TextInputEditText tIETComment;
     private CorridaDAO db;
     // private AppCompatActivity activity;
     private float km = 0;
     private DecimalFormat dc;
-    private int minutos = 0;
+    private int minu;
     private Corrida corrida;
 
     public static MyMeta newInstance() {
@@ -62,27 +63,41 @@ public class MyMeta extends Fragment{
         View v;
 
         if(!corrida.isFinalizada()) {
-            v = inflater.inflate(R.layout.fragment_my_meta, container, false);
+            v = inflater.inflate(R.layout.fragment_meta, container, false);
 
-            FloatingActionButton btnIncrement, btnDecrement, btnIncremMin, btnDecremMin;
-            btnVoltar = (Button) v.findViewById(R.id.voltar_btn);
-            btnCorrer = (Button) v.findViewById(R.id.correr_btn);
+            FloatingActionButton btnIncrement, btnDecrement;
+
+            TextView tVTitle = (TextView) v.findViewById(R.id.tipo_tV);
+            tVTitle.setText("Minha Meta");
+
+            btnFSalvar = (FloatingActionButton) v.findViewById(R.id.salvar_btnF);
+            btnFCorrer = (FloatingActionButton) v.findViewById(R.id.correr_btnF);
             tVKm = (TextView) v.findViewById(R.id.km_tV); //No xml é EditText mais foi referenciado como TextView.
-            tVMaxTempo = (TextView) v.findViewById(R.id.minutos_eT);
+            tVMinutos = (TextView) v.findViewById(R.id.minutos_eT);
+            tVHoras = (TextView) v.findViewById(R.id.horas_eT);
             tIETComment = (TextInputEditText) v.findViewById(R.id.comment_tIET);
-            btnSalvar = (Button) v.findViewById(R.id.salvar_btn);
-            btnIncrement = (FloatingActionButton) v.findViewById(R.id.increment_btn);
-            btnDecrement = (FloatingActionButton) v.findViewById(R.id.decrement_btn);
-            btnIncremMin = (FloatingActionButton) v.findViewById(R.id.incremMin_btn);
-            btnDecremMin = (FloatingActionButton) v.findViewById(R.id.decremMin_btn);
+            btnIncremMin = (Button) v.findViewById(R.id.incremMin_btn);
+            btnDecremMin = (Button) v.findViewById(R.id.decremMin_btn);
+            btnFIncrement = (FloatingActionButton) v.findViewById(R.id.increment_btnF);
+            btnFDecrement = (FloatingActionButton) v.findViewById(R.id.decrement_btnF);
+
+            //
 
             //Faz o set nos TextViews
 
             tVKm.setText(String.valueOf(corrida.getMaxKm()));
-            tVMaxTempo.setText(String.valueOf(corrida.getMaxTempo()));
+            
+            //Deve pegar o tempo e transformar em horas, futuramente deverá ser do tipo int
+            String minutos = String.valueOf(corrida.getMaxTempo());
+            //Deverá mudar futuramente
+            tVMinutos.setText(minutos);
+            
+            
+            
             tIETComment.setText(String.valueOf(corrida.getComment()));
 
-            btnIncrement.setOnClickListener(new View.OnClickListener() {
+
+            btnFIncrement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Acrescenta
@@ -91,7 +106,7 @@ public class MyMeta extends Fragment{
                 }
             });
 
-            btnDecrement.setOnClickListener(new View.OnClickListener() {
+            btnFDecrement.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // Diminui
@@ -99,46 +114,45 @@ public class MyMeta extends Fragment{
                     tVKm.setText(Float.toString(Float.parseFloat(dc.format(km))));
                 }
             });
-
             btnIncremMin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    minutos = minutos + 1;
-                    tVMaxTempo.setText(String.valueOf(minutos));
+                    minu++;
+                    tVMinutos.setText(String.valueOf(minu));
                 }
             });
 
             btnDecremMin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    minutos = minutos - 1;
-                    tVMaxTempo.setText(String.valueOf(minutos));
+                    minu = minu - 1;
+                    tVMinutos.setText(String.valueOf(minu));
                 }
             });
+            
 
-            btnSalvar.setOnClickListener(new View.OnClickListener() {
+    
+            btnFSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     float km = Float.parseFloat(String.valueOf(tVKm.getText()));
-                    String mi = String.valueOf(String.valueOf(tVMaxTempo.getText()));
+                    String mi = String.valueOf(String.valueOf(tVMinutos.getText()));
                     String co = String.valueOf(String.valueOf(tIETComment.getText()));
 
                     corrida.setMaxKm(Float.parseFloat(String.valueOf(tVKm.getText())));
-                    corrida.setMaxTempo(String.valueOf(tVMaxTempo.getText()));
+                    corrida.setTempo(String.valueOf(tVMinutos.getText()));
                     corrida.setComment(String.valueOf(tIETComment.getText()));
+
 
                     db.atualizarCorrida(corrida);
                     //Toast.makeText(Home.this, "Salvo com sucesso!", Toast.LENGTH_LONG).show();
                     Toast.makeText(getActivity(), "Meta atualizada com sucesso", Toast.LENGTH_SHORT).show();
-                }
-            });
-            btnVoltar.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+
                     MainActivity.Transicao.abrirView(getActivity(), Metas.newInstance());
                 }
             });
-            btnCorrer.setOnClickListener(new View.OnClickListener() {
+
+            btnFCorrer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     corrida.setComment(String.valueOf(tIETComment.getText()));
@@ -150,13 +164,13 @@ public class MyMeta extends Fragment{
         }else {
             v = inflater.inflate(R.layout.fragment_my_meta_finalizada, container, false);
 
-            btnCorrer = (Button) v.findViewById(R.id.salvar_btn);
+            btnFUpdate = (FloatingActionButton) v.findViewById(R.id.update_btnF);
             tVHorario = (TextView) v.findViewById(R.id.horario_tV);
             tVTempoReg = (TextView) v.findViewById(R.id.tempo_reg_tV);
             tVCalendar = (TextView) v.findViewById(R.id.calendar_tV);
             tIETComment = (TextInputEditText) v.findViewById(R.id.comment_upd_tIET);
             tVKm = (TextView) v.findViewById(R.id.meta_km_tV);
-            tVMaxTempo = (TextView) v.findViewById(R.id.max_tempo_tV);
+            tVMinutos = (TextView) v.findViewById(R.id.max_tempo_tV);
             
             corrida = db.carregarCorridaFinalizada(corrida.getId());
 
@@ -164,11 +178,13 @@ public class MyMeta extends Fragment{
             tVHorario.setText(corrida.getHorario());
             tVCalendar.setText(corrida.getdiaMesAno());
             tVKm.setText(String.valueOf(corrida.getMaxKm()));
-            tVMaxTempo.setText(corrida.getMaxTempo());
+            tVMinutos.setText(corrida.getMaxTempo());
             tIETComment.setText(corrida.getComment());
 
+            ///Implementar o botão de correr novamente;
+
             //Essa é parte em que ele grava o cometário no bd porém ele guarda taodas as informações do objeto novamente, causando redundância no banco.
-            btnCorrer.setOnClickListener(new View.OnClickListener() {
+             btnFUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     corrida.setComment(String.valueOf(tIETComment.getText()));
