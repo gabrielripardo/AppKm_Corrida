@@ -6,138 +6,185 @@
 	android:layout_height="match_parent"
 	android:layout_marginRight="10dp">
 
-	<TextView
-		android:id="@+id/textView9"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="8dp"
-		android:layout_marginEnd="8dp"
-		android:layout_marginStart="20dp"
-		android:layout_marginTop="36dp"
-		android:text="Percurso:"
-		android:textColor="?android:attr/textColorAlertDialogListItem"
-		android:textSize="16sp"
-		app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-		app:layout_constraintEnd_toStartOf="@+id/textView10"
-		app:layout_constraintHorizontal_bias="0.526"
-		app:layout_constraintStart_toEndOf="@+id/deletar_btn"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.0" />
-
-	<TextView
-		android:id="@+id/textView10"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_marginBottom="8dp"
-		android:layout_marginEnd="20dp"
-		android:layout_marginTop="36dp"
-		android:text="Tempo:"
-		android:textColor="?attr/actionMenuTextColor"
-		android:textSize="16sp"
-		app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-		app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.0" />
-
 	<Button
 		android:id="@+id/deletar_btn"
-		android:layout_width="60dp"
-		android:layout_height="41dp"
+		android:layout_width="41dp"
+		android:layout_height="35dp"
 		android:layout_gravity="right"
-		android:layout_marginBottom="8dp"
-		android:layout_marginStart="8dp"
-		android:layout_marginTop="36dp"
+		android:layout_marginStart="56dp"
+		android:layout_marginTop="4dp"
+		android:background="@drawable/ic_delete_trash"
 		android:fontFamily="serif"
-		android:text="Deletar"
 		android:textAllCaps="false"
 		android:textSize="10sp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.0" />
+		app:layout_constraintStart_toEndOf="@+id/medalha_iV"
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageView
 		android:id="@+id/status_iV"
-		android:layout_width="51dp"
-		android:layout_height="78dp"
+		android:layout_width="38dp"
+		android:layout_height="44dp"
 		android:layout_margin="5dp"
 		android:layout_marginBottom="8dp"
-		android:layout_marginEnd="4dp"
+		android:layout_marginEnd="24dp"
+		android:layout_marginStart="8dp"
 		android:layout_marginTop="16dp"
 		android:scaleType="fitXY"
 		android:src="@drawable/corrida_off"
-		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintBottom_toBottomOf="@+id/linearLayout13"
 		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.4"
+		app:layout_constraintStart_toEndOf="@+id/linearLayout13"
 		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.049" />
+		app:layout_constraintVertical_bias="1.0" />
 
 	<LinearLayout
-		android:id="@+id/linearLayout"
-		android:layout_width="0dp"
+		android:id="@+id/linearLayout13"
+		android:layout_width="106dp"
 		android:layout_height="wrap_content"
-		android:layout_marginBottom="32dp"
-		android:layout_marginEnd="8dp"
-		android:orientation="horizontal"
-		app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
-		app:layout_constraintEnd_toStartOf="@+id/status_iV">
-
-		<TextView
-			android:id="@+id/maxTempo_tV"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginEnd="5dp"
-			android:layout_weight="1"
-			android:text="0000"
-			android:textSize="18sp"
-			app:layout_constraintEnd_toStartOf="@+id/deletar_btn"
-			tools:layout_editor_absoluteY="55dp" />
-
-		<TextView
-			android:id="@+id/textView5"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="0dp"
-			android:layout_weight="1"
-			android:text="min"
-			tools:layout_editor_absoluteX="253dp"
-			tools:layout_editor_absoluteY="55dp" />
-	</LinearLayout>
-
-	<LinearLayout
-		android:id="@+id/linearLayout2"
-		android:layout_width="107dp"
-		android:layout_height="wrap_content"
-		android:layout_marginEnd="8dp"
-		android:layout_marginStart="20dp"
-		android:layout_marginTop="24dp"
-		android:orientation="horizontal"
-		app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-		app:layout_constraintHorizontal_bias="1.0"
-		app:layout_constraintStart_toEndOf="@+id/deletar_btn"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:orientation="vertical"
+		app:layout_constraintStart_toEndOf="@+id/linearLayout12"
 		app:layout_constraintTop_toTopOf="parent">
 
-		<TextView
-			android:id="@+id/maxKm_tV"
+		<LinearLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="8dp"
-			android:layout_marginTop="36dp"
-			android:layout_weight="1"
-			android:text="00000"
-			android:textSize="30sp"
-			app:layout_constraintBottom_toBottomOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintVertical_bias="0.164"
-			tools:layout_editor_absoluteX="98dp" />
+			android:orientation="horizontal">
 
-		<TextView
-			android:id="@+id/textView6"
+			<ImageView
+				android:id="@+id/imageView14"
+				android:layout_width="37dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				app:srcCompat="@drawable/ic_percurso"
+				tools:layout_editor_absoluteX="188dp"
+				tools:layout_editor_absoluteY="195dp" />
+
+			<TextView
+				android:id="@+id/textView9"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="Percurso:"
+				android:textColor="?android:attr/textColorAlertDialogListItem"
+				android:textSize="16sp"
+				tools:layout_editor_absoluteX="261dp"
+				tools:layout_editor_absoluteY="137dp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/linearLayout2"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginTop="40dp"
-			android:layout_weight="1"
-			android:text="Km"
-			app:layout_constraintTop_toTopOf="@+id/maxKm_tV"
-			tools:layout_editor_absoluteX="183dp" />
+			android:layout_gravity="center_horizontal"
+			android:layout_marginEnd="0dp"
+			android:layout_marginTop="0dp"
+			android:orientation="horizontal">
+
+			<TextView
+				android:id="@+id/maxKm_tV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="0dp"
+				android:layout_marginTop="0dp"
+				android:layout_weight="1"
+				android:text="0000"
+				android:textAlignment="textEnd"
+				android:textSize="30sp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintVertical_bias="0.164"
+				tools:layout_editor_absoluteX="98dp" />
+
+			<TextView
+				android:id="@+id/textView6"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="0dp"
+				android:layout_weight="1"
+				android:text="Km"
+				app:layout_constraintTop_toTopOf="@+id/maxKm_tV"
+				tools:layout_editor_absoluteX="183dp" />
+		</LinearLayout>
 	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/linearLayout12"
+		android:layout_width="91dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="8dp"
+		android:layout_marginTop="8dp"
+		android:orientation="vertical"
+		app:layout_constraintStart_toEndOf="@+id/medalha_iV"
+		app:layout_constraintTop_toBottomOf="@+id/deletar_btn">
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal">
+
+			<ImageView
+				android:id="@+id/imageView15"
+				android:layout_width="37dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				app:srcCompat="@drawable/ic_tempo_maximo"
+				tools:layout_editor_absoluteX="188dp"
+				tools:layout_editor_absoluteY="195dp" />
+
+			<TextView
+				android:id="@+id/textView10"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="Limite:"
+				android:textColor="?attr/actionMenuTextColor"
+				android:textSize="16sp"
+				tools:layout_editor_absoluteX="225dp"
+				tools:layout_editor_absoluteY="23dp" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:id="@+id/linearLayout"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			android:orientation="horizontal"
+			tools:layout_editor_absoluteX="230dp"
+			tools:layout_editor_absoluteY="52dp">
+
+			<TextView
+				android:id="@+id/maxTempo_tV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="5dp"
+				android:layout_weight="1"
+				android:text="0000"
+				android:textSize="18sp"
+				app:layout_constraintEnd_toStartOf="@+id/deletar_btn"
+				tools:layout_editor_absoluteY="55dp" />
+
+			<TextView
+				android:id="@+id/textView5"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="0dp"
+				android:layout_weight="1"
+				android:text="min"
+				tools:layout_editor_absoluteX="253dp"
+				tools:layout_editor_absoluteY="55dp" />
+		</LinearLayout>
+	</LinearLayout>
+
+	<ImageView
+		android:id="@+id/medalha_iV"
+		android:layout_width="86dp"
+		android:layout_height="90dp"
+		android:layout_marginTop="4dp"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:srcCompat="@drawable/bronze" />
+
 </android.support.constraint.ConstraintLayout>

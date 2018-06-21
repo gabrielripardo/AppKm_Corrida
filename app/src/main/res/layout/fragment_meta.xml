@@ -94,7 +94,7 @@
                     android:layout_width="37dp"
                     android:layout_height="49dp"
                     android:layout_marginStart="20dp"
-                    android:src="@drawable/ic_way"
+                    android:src="@drawable/ic_percurso"
                     app:layout_constraintStart_toStartOf="@+id/fundoTempo"
                     app:layout_constraintTop_toTopOf="@+id/linearLayout9" />
 
@@ -210,23 +210,22 @@
                     android:id="@+id/imageView5"
                     android:layout_width="37dp"
                     android:layout_height="49dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:src="@drawable/ic_clock"
-                    app:layout_constraintStart_toStartOf="@+id/fundoPercurso"
+                    android:src="@drawable/ic_tempo_maximo"
+                    app:layout_constraintEnd_toEndOf="@+id/linearLayout10"
                     app:layout_constraintTop_toTopOf="@+id/fundoPercurso" />
 
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="28dp"
                     android:layout_marginTop="20dp"
                     android:layout_weight="0"
                     android:text="Tempo Máximo"
                     android:textAlignment="center"
                     android:textColor="@android:color/background_dark"
-                    app:layout_constraintStart_toEndOf="@+id/imageView5"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/fundoPercurso">
 
                 </TextView>
