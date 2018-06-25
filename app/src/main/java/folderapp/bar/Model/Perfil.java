@@ -8,7 +8,6 @@ public class Perfil {
     public Perfil(){
 
     }
-
     public Perfil(String nome, String foto) {
         this.nome = nome;
         this.foto = foto;

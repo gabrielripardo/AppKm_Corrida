@@ -29,6 +29,7 @@ public class Home extends Fragment{
     private TextView tVKm, tVMinutos;
     private CorridaDAO db;
     private PerfilDAO dbPerfil;
+    private Button imgBPerfil;
     // private AppCompatActivity activity;
 
     public static Home newInstance() {
@@ -60,9 +61,10 @@ public class Home extends Fragment{
 
         tVNome = (TextView) v.findViewById(R.id.nome_tV);
         btnFMeta = (FloatingActionButton) v.findViewById(R.id.definirMeta_btnF);
+        imgBPerfil = (Button) v.findViewById(R.id.perfil_imgB);
 
         tVNome.setText(dbPerfil.carregarPerfil(1).getNome());
-
+        imgBPerfil.setBackgroundResource(Integer.parseInt(dbPerfil.carregarPerfil(1).getFoto()));
 
         btnFMeta.setOnClickListener(new View.OnClickListener() {
             @Override
