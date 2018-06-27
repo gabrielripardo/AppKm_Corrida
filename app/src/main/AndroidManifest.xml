@@ -40,7 +40,12 @@
             android:label="@string/title_activity_settings" />
         <activity
             android:name=".MeuPerfil"
-            android:label="@string/title_activity_meu_perfil"></activity>
+            android:label="@string/title_activity_meu_perfil" />
+        <activity
+            android:name=".CorridaFinish"
+            android:label="@string/title_activity_corrida_finish"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".FinishCorrida"></activity>
     </application>
 
 </manifest>

@@ -34,24 +34,81 @@
             android:background="@android:color/holo_blue_dark"
             android:text="ToggleButton"
             android:textColor="@android:color/background_light"
-            android:textOff="2"
-            android:textOn="21" />
+            android:textOff="Não"
+            android:textOn="Sim" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/simulador_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Simular Corrida" />
+
+    <ProgressBar
+        android:id="@+id/barrinha_pB"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp" />
+
+
 
     <ProgressBar
         android:id="@+id/progressBar2"
         style="@android:style/Widget.Holo.Light.ProgressBar.Small"
-        android:layout_width="337dp"
-        android:layout_height="266dp"
+        android:layout_width="270dp"
+        android:layout_height="167dp"
+        android:layout_gravity="center_horizontal"
         android:theme="?attr/actionBarPopupTheme" />
 
-    <TextView
-        android:id="@+id/km_max_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="KM  0.0/0.0"
-        android:textSize="40sp" />
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:text="KM"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/kmGps_tV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text=" 0.0"
+            android:textColor="@android:color/background_dark"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/textview2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="/"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/km_max_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text=" 0.0"
+            android:textColor="@color/colorAccent"
+            android:textSize="40sp" />
+    </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -112,6 +169,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView"
+                android:textColor="@color/colorAccent"
                 android:textSize="25sp" />
 
         </LinearLayout>

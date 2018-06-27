@@ -148,35 +148,33 @@ public class Meta extends Fragment{
         btnFSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            criarMeta();
+            criarObjeto();
+            db.addCorrida(c);
+
             Toast.makeText(getActivity(), "Meta criada com sucesso!", Toast.LENGTH_SHORT).show();
             MainActivity.Transicao.abrirView(getActivity(), Metas.newInstance());
 
             }
         });
         btnFCorrer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(c == null) {
-                        criarMeta();
-                    }
-                    MainActivity.Transicao.setCorrida(c);
-                    Intent intent = new Intent(getActivity(), CorridaActivity.class);
-                    startActivity(intent);
-                }
-            });
+            @Override
+            public void onClick(View v) {
+                criarObjeto();
+                MainActivity.Transicao.setCorrida(c);
+                Intent intent = new Intent(getActivity(), CorridaActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return v;
     }
-    private void criarMeta(){
+    void criarObjeto(){
         float km = Float.parseFloat(String.valueOf(tVKm.getText()));
         String co = String.valueOf(String.valueOf(tIETComment.getText()));
 
         c = new Corrida();
         c.setMaxKm(km);
         c.setComment(co);
-        c.setMinutos(minutos, horas);
-
-        db.addCorrida(c);
+        c.setMinutosMaxTempo(minutos, horas);
     }
 }

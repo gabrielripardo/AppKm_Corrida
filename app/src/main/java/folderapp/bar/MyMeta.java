@@ -21,7 +21,7 @@ import folderapp.bar.Model.CorridaDAO;
 
 public class MyMeta extends Fragment{
     Context contexto;
-    private FloatingActionButton btnFSalvar, btnFUpdate, btnFCorrer, btnFIncrement, btnFDecrement;
+    private FloatingActionButton btnFSalvar, btnFUpdate, btnFCorrer, btnFIncrement, btnFDecrement, btnFCorrerAgain;
     private Button btnIncremMin, btnDecremMin, btnIncremHora, btnDecremHora;;
     private TextView tVKm, tVMinutos, tVHoras, tVTempoReg, tVHorario, tVCalendar;
     private TextInputEditText tIETComment;
@@ -86,7 +86,7 @@ public class MyMeta extends Fragment{
 
             km = corrida.getKm();
 
-            String[] tempoMax = corrida.converterMinutos();
+            String[] tempoMax = corrida.convetToHoursFormat(corrida.getMaxTempo());
 
             horas = Integer.parseInt(tempoMax[0]);
             minutos = Integer.parseInt(tempoMax[1]);
@@ -179,14 +179,7 @@ public class MyMeta extends Fragment{
             btnFSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    float km = Float.parseFloat(String.valueOf(tVKm.getText()));
-                    String mi = String.valueOf(String.valueOf(tVMinutos.getText()));
-                    String co = String.valueOf(String.valueOf(tIETComment.getText()));
-
-                    corrida.setMaxKm(Float.parseFloat(String.valueOf(tVKm.getText())));
-                    corrida.setTempo(String.valueOf(tVMinutos.getText()));
-                    corrida.setMinutos(minutos, horas);
-                    corrida.setComment(String.valueOf(tIETComment.getText()));
+                    salvarObjeto();
 
 
                     db.atualizarCorrida(corrida);
@@ -200,7 +193,7 @@ public class MyMeta extends Fragment{
             btnFCorrer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    salvarObjeto();
                     MainActivity.Transicao.setCorrida(corrida);
                     Intent intent = new Intent(getActivity(), CorridaActivity.class);
                     startActivity(intent);
@@ -217,17 +210,29 @@ public class MyMeta extends Fragment{
             tIETComment = (TextInputEditText) v.findViewById(R.id.comment_upd_tIET);
             tVKm = (TextView) v.findViewById(R.id.meta_km_tV);
             tVMinutos = (TextView) v.findViewById(R.id.max_tempo_tV);
+            btnFCorrerAgain = (FloatingActionButton) v.findViewById(R.id.correrAgain_btnF);
 
             corrida = db.carregarCorridaFinalizada(corrida.getId());
 
-            tVTempoReg.setText(corrida.getTempo());
+            String[] formatTime = corrida.convetToHoursFormat(corrida.getTempo());
+            tVTempoReg.setText((formatTime[0]+":"+formatTime[1]));
             tVHorario.setText(corrida.getHorario());
             tVCalendar.setText(corrida.getdiaMesAno());
             tVKm.setText(String.valueOf(corrida.getMaxKm()));
             tVMinutos.setText(String.valueOf(corrida.getMaxTempo()));
             tIETComment.setText(corrida.getComment());
 
-            ///Implementar o botão de correr novamente;
+            btnFCorrerAgain.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Corrida c = new Corrida();
+                    c.setMaxKm(corrida.getMaxKm());
+                    c.setMaxTempo(corrida.getMaxTempo());
+                    c.setComment(corrida.getComment());
+                    db.addCorrida(c);
+                    Toast.makeText(getContext(), "Meta replicada, volte para tela de metas!", Toast.LENGTH_LONG).show();
+                }
+            });
 
             //Essa é parte em que ele grava o cometário no bd porém ele guarda taodas as informações do objeto novamente, causando redundância no banco.
              btnFUpdate.setOnClickListener(new View.OnClickListener() {
@@ -242,5 +247,15 @@ public class MyMeta extends Fragment{
         }
         Log.i("%%%%$$$$$$###########", "Tempo: "+corrida.getTempo());
         return v;
+    }
+    public void salvarObjeto(){
+        float km = Float.parseFloat(String.valueOf(tVKm.getText()));
+        String mi = String.valueOf(String.valueOf(tVMinutos.getText()));
+        String co = String.valueOf(String.valueOf(tIETComment.getText()));
+
+        corrida.setMaxKm(Float.parseFloat(String.valueOf(tVKm.getText())));
+        // corrida.setTempo((tVMinutos.getText()));
+        corrida.setMinutosMaxTempo(minutos, horas);
+        corrida.setComment(String.valueOf(tIETComment.getText()));
     }
 }

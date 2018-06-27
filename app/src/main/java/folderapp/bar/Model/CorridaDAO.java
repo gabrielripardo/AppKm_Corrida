@@ -18,7 +18,7 @@ import java.util.List;
 
 public class CorridaDAO extends SQLiteOpenHelper{
     private static final int VERSAO_BANCO = 1;
-    private static String BANCO = "bd_km_corrida_app";
+    private static String BANCO = "bdkmcorrida_app__";
 
     private static final String TABELA_CORRIDA = "tb_corridas";
     
@@ -30,6 +30,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
     private static final String COLUNA_FINALIZADA = "finalizada";
     private static final String COLUNA_HORARIO = "horario";
     private static final String COLUNA_CALENDAR = "calendar";
+    private static final String COLUNA_MEDALHA = "medalha";
     private static final String COLUNA_KMPercorrido = "kmpercorrido";
 
 
@@ -41,8 +42,8 @@ public class CorridaDAO extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         String QUERY_COLUNA = "CREATE TABLE " + TABELA_CORRIDA + "("
                 + COLUNA_CODIGO + " INTEGER PRIMARY KEY, " + COLUNA_COMENTARIO + " TEXT,"
-                + COLUNA_MAXKM + " REAL, " + COLUNA_MAXTEMPO + " INTEGER," + COLUNA_TEMPO +" TEXT,"+ COLUNA_FINALIZADA +" INTEGER,"+ COLUNA_HORARIO+" TEXT,"+ COLUNA_CALENDAR+ " TEXT,"+ COLUNA_HORARIO+"TEXT,"+
-                COLUNA_KMPercorrido+" TEXT)";
+                + COLUNA_MAXKM + " REAL, " + COLUNA_MAXTEMPO + " INTEGER," + COLUNA_TEMPO +" INTEGER,"+ COLUNA_FINALIZADA +" INTEGER,"+ COLUNA_HORARIO+" TEXT,"+ COLUNA_CALENDAR+ " TEXT,"+ COLUNA_HORARIO+"TEXT,"+
+                COLUNA_MEDALHA+" INTEGER,"+ COLUNA_KMPercorrido+" REAL)";
 
         db.execSQL(QUERY_COLUNA);
 
@@ -60,11 +61,18 @@ public class CorridaDAO extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-
         values.put(COLUNA_COMENTARIO, corrida.getComment());
         values.put(COLUNA_MAXKM, corrida.getMaxKm());
         values.put(COLUNA_MAXTEMPO, corrida.getMaxTempo());
-        values.put(COLUNA_FINALIZADA, 0);
+        values.put(COLUNA_TEMPO, corrida.getTempo());
+        values.put(COLUNA_HORARIO, corrida.getHorario());
+        values.put(COLUNA_CALENDAR, corrida.getdiaMesAno());
+        values.put(COLUNA_MEDALHA, corrida.getMedalha());
+
+        int finalizada = 0;
+        if(corrida.isFinalizada())
+            finalizada = 1;
+        values.put(COLUNA_FINALIZADA, finalizada);
 
         db.insert(TABELA_CORRIDA, null, values);
         db.close();
@@ -100,7 +108,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABELA_CORRIDA, new String[] {COLUNA_CODIGO, COLUNA_COMENTARIO,
-                        COLUNA_MAXKM, COLUNA_MAXTEMPO, COLUNA_TEMPO, COLUNA_FINALIZADA, COLUNA_HORARIO, COLUNA_CALENDAR}, COLUNA_CODIGO + " = ?",
+                        COLUNA_MAXKM, COLUNA_MAXTEMPO, COLUNA_TEMPO, COLUNA_FINALIZADA, COLUNA_HORARIO, COLUNA_CALENDAR, COLUNA_MEDALHA}, COLUNA_CODIGO + " = ?",
                 new String[] {String.valueOf(id)}, null, null, null, null);
 
         if(cursor != null){
@@ -110,12 +118,14 @@ public class CorridaDAO extends SQLiteOpenHelper{
             //Criação de objeto e popularização
             Corrida corrida = new Corrida(Integer.parseInt(cursor.getString(0)),
                     cursor.getString(1), Float.parseFloat(cursor.getString(2)), Integer.parseInt(cursor.getString(3)));
-            corrida.setTempo(cursor.getString(4));
+            corrida.setTempo(Integer.parseInt(cursor.getString(4)));
+
             if(Integer.parseInt(cursor.getString(5))==1){
                 corrida.setFinalizada(true);
             }
             corrida.setHorario(cursor.getString(6));
             corrida.setdiaMesAno(cursor.getString(7));
+            corrida.setMedalha(Integer.parseInt(cursor.getString(8)));
 
             return corrida;
         }catch(SQLException e) {
@@ -137,6 +147,10 @@ public class CorridaDAO extends SQLiteOpenHelper{
         values.put(COLUNA_MAXKM, corrida.getMaxKm());
         values.put(COLUNA_MAXTEMPO, corrida.getMaxTempo());
         values.put(COLUNA_TEMPO, corrida.getTempo());
+        values.put(COLUNA_HORARIO, corrida.getHorario());
+        values.put(COLUNA_CALENDAR, corrida.getdiaMesAno());
+        values.put(COLUNA_MEDALHA, corrida.getMedalha());
+
         int finalizada = 0;
         if(corrida.isFinalizada())
             finalizada = 1;
@@ -155,6 +169,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
         values.put(COLUNA_TEMPO, corrida.getTempo());
         values.put(COLUNA_HORARIO, corrida.getHorario());
         values.put(COLUNA_CALENDAR, corrida.getdiaMesAno());
+        values.put(COLUNA_MEDALHA, corrida.getMedalha());
 
         int finalizada = 0;
         if(corrida.isFinalizada())
@@ -179,13 +194,14 @@ public class CorridaDAO extends SQLiteOpenHelper{
                 corrida.setComment(c.getString(1));
                 corrida.setMaxKm(Float.parseFloat(c.getString(2)));
                 corrida.setMaxTempo(Integer.parseInt(c.getString(3)));
+                corrida.setMedalha(Integer.parseInt(c.getString(9)));
                 if(c.getString(5)!=null) {
                     if (Integer.parseInt(c.getString(5)) == 1)
                         corrida.setFinalizada(true);
                 }
 
                 listaCorridas.add(corrida);
-                Log.i("$$$$$$$$$$$$$$$$", "DIRETO DO BANCO $$$$$$$$$$$$$$$$$$$$$$ Finalizada? "+ String.valueOf(corrida.isFinalizada())+" Tempo: "+corrida.getTempo());
+                Log.i("$$$$$$$$$$$$$$$$", "DIRETO DO BANCO $$$$$$$$$$$$$$$$$$$$$$ Finalizada? "+ String.valueOf(corrida.isFinalizada())+" Tempo: "+corrida.getTempo()+" Medalha: "+corrida.getMedalha());
 
             }while(c.moveToNext());
         }

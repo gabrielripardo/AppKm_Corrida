@@ -56,12 +56,28 @@ public class CorridaAdapter extends ArrayAdapter<Corrida> {
 			}
 		});
 
-
+		ImageView iVMedalha = (ImageView) rowView.findViewById(R.id.medalha_iV);
 		TextView tVmaxKm = (TextView) rowView.findViewById(R.id.maxKm_tV);
 		TextView tVmaxTempo = (TextView) rowView.findViewById(R.id.maxTempo_tV);
 		ImageView imagem = (ImageView) rowView.findViewById(R.id.status_iV);
 		final Button btnDeletar = (Button) rowView.findViewById(R.id.deletar_btn);
 
+
+		//Recupera o número da imagem da medalha e faz o set no iV
+		switch (elementos.get(position).getMedalha()){
+			case 1:
+				iVMedalha.setBackgroundResource(R.drawable.ouro);
+				break;
+			case 2:
+				iVMedalha.setBackgroundResource(R.drawable.prata);
+				break;
+			case 3:
+				iVMedalha.setBackgroundResource(R.drawable.bronze);
+				break;
+		}
+
+
+		//Faz os set da meta
 		tVmaxKm.setText(String.valueOf(elementos.get(position).getMaxKm()));
 		tVmaxTempo.setText(String.valueOf(elementos.get(position).getMaxTempo()));
 

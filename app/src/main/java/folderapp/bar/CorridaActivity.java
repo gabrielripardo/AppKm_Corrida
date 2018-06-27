@@ -14,22 +14,31 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ProgressBar;
 import android.widget.TextClock;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 
 import folderapp.bar.Model.Corrida;
 import folderapp.bar.Model.CorridaDAO;
 
+import static java.lang.Thread.sleep;
+
 
 public class CorridaActivity extends AppCompatActivity {
     private Corrida corrida;
-    private TextView kmTxV, tVtempoMax;
+    protected TextView tVGpsKm, tVKmMax, tVtempoMax;
     private FloatingActionButton btnFIniciar, btnFParar, btnFPausar;
+    private Button btnSimular;
     private Chronometer cronometro;
     private long milliseconds;
-    private CorridaDAO bd = new CorridaDAO(this);
+    private int metros;
+    protected static final int TIMER_RUNTIME = 10000;
+    protected boolean mbActive;
+    protected ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +50,28 @@ public class CorridaActivity extends AppCompatActivity {
 
         milliseconds = 0;
 
+        mbActive = true;
+
+        mProgressBar = (ProgressBar) findViewById(R.id.barrinha_pB);
+        btnSimular = (Button) findViewById(R.id.simulador_btn);
         btnFIniciar = (FloatingActionButton) findViewById(R.id.iniciar_btnF);
         btnFParar = (FloatingActionButton) findViewById(R.id.parar_btnF);
         btnFPausar = (FloatingActionButton) findViewById(R.id.pausar_btnF);
         cronometro = (Chronometer) findViewById(R.id.cronometro);
-        kmTxV = (TextView) findViewById(R.id.km_max_tv);
+        tVKmMax = (TextView) findViewById(R.id.km_max_tv);
+        tVGpsKm = (TextView) findViewById(R.id.kmGps_tV);
         tVtempoMax = (TextView) findViewById(R.id.tempoMax_tV);
 
-        kmTxV.setText("KM 0.0/"+corrida.getMaxKm());
+        tVKmMax.setText(String.valueOf(corrida.getMaxKm()));
 
-        String[] tempoLim = corrida.converterMinutos();
+        String[] tempoLim = corrida.convetToHoursFormat(corrida.getMaxTempo());
 
         tVtempoMax.setText(tempoLim[0]+ ":" +tempoLim[1]);
 
         btnFIniciar.setEnabled(true);
         btnFParar.setEnabled(false);
         btnFPausar.setEnabled(false);
+        btnSimular.setEnabled(false);
 
         //Marca a data de largada
         long date = System.currentTimeMillis();
@@ -69,11 +84,21 @@ public class CorridaActivity extends AppCompatActivity {
         //Marca as horas em que a corrida foi iniciada
         TextClock clock;
         clock = new TextClock(getApplicationContext());
-        clock.setFormat12Hour("HH:mm");
+        clock.setFormat12Hour("HH:mm:ss");
         String horario = String.valueOf(clock.getText());
         corrida.setHorario(horario);
 
         Log.i("###############", "Horário: " + corrida.getHorario());
+
+
+        btnSimular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iniciarBarra(true);
+            }
+        });
+
+
 
         btnFIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,40 +112,23 @@ public class CorridaActivity extends AppCompatActivity {
 
                 cronometro.setBase(SystemClock.elapsedRealtime() - milliseconds);
                 cronometro.start();
+
+                btnSimular.setEnabled(true);
+
             }
         });
         btnFParar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                corrida.setFinalizada(true);
-
                 //Comportamento dos botões
                 btnFParar.setImageResource(R.drawable.ic_stop_off);
                 btnFIniciar.setEnabled(false);
                 btnFParar.setEnabled(false);
                 btnFPausar.setEnabled(false);
 
-                //Cronometro deve parar e guardar seu valor no objeto Corrida
-                cronometro.stop();
-                corrida.setTempo(String.valueOf(cronometro.getText()));
+                mbActive = false;
+                salvarCorrida();
 
-                //Pegar todas as informações da corrida e guradar no BD.
-                Log.i("###############","Id: "+String.valueOf(corrida.getId())+"Tempo de corrida: "+corrida.getTempo()+
-                " Meta de Km: "+corrida.getMaxKm()+" Tempo máximo: "+corrida.getMaxTempo()+
-                        " Horário do início da largada: "+corrida.getHorario()+
-                        " Data: "+ corrida.getdiaMesAno()+
-                                " Finalizada: "+corrida.isFinalizada());
-                //A ideia é quando é usuário acionar esse botão, o tempo será armazenado no BD e será aberta uma view.
-
-                bd.atualizarCorridaFinalizada(corrida);
-
-                startActivity(new Intent(CorridaActivity.this, MainActivity.class));
-
-                /*Fragment fragmentSelect = MyMeta.newInstance();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, fragmentSelect);
-                transaction.commit();
-                */
             }
         });
         btnFPausar.setOnClickListener(new View.OnClickListener() {
@@ -136,5 +144,76 @@ public class CorridaActivity extends AppCompatActivity {
                 cronometro.stop();
             }
         });
+    }
+    public void updateProgress(final int timePassed) {
+        if (null != mProgressBar) {
+            final int progress = mProgressBar.getMax() * timePassed / TIMER_RUNTIME;
+
+            mProgressBar.setProgress(progress);
+        }
+    }
+    public void iniciarBarra(final boolean simular){
+        final Thread timerThread = new Thread(){
+            @Override
+            public void run(){
+                try{
+                    float percorre = (float) (corrida.getMaxKm()*1000)/10;
+                    int waited = 0;
+                    if(simular) {
+                        while (mbActive && (waited < TIMER_RUNTIME)) { //A cada 200 milisegundo é acresentado o 200 até chegar a 10000
+                            sleep(1000);
+                            if (mbActive) {
+
+                                waited += 1000;
+                                updateProgress(waited);
+
+                                metros += percorre; //a cada 200 milisegundo o robô anda 100 metros
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tVGpsKm.setText(String.valueOf((float)metros/1000));
+                                    }
+                                });
+
+                            }
+                        }
+                    }else {
+                        //code gps
+                        //é viável criar um método ou uma classe para obter os metros do gps
+                        //valores de km gerados pelo gps
+                    }
+                }catch(InterruptedException e){
+                    //Tratar exceção
+                }finally{
+                    if(mbActive) {
+                        salvarCorrida();
+                    }
+                }
+            }
+        };
+        timerThread.start();
+    }
+    public void salvarCorrida(){
+
+        corrida.setFinalizada(true);
+
+        //A quilometragem percorrida .......
+        corrida.setKm((float) metros/1000);
+
+        //Cronometro deve parar e guardar seu valor no objeto Corrida
+        cronometro.stop();
+
+        //Converte a String do cronometro em minutos
+        // int horas = Integer.parseInt(String.valueOf(cronometro.getText().charAt(0))+String.valueOf(cronometro.getText().charAt(1)));
+        int minus = Integer.parseInt(String.valueOf(cronometro.getText().charAt(3))+String.valueOf(cronometro.getText().charAt(4)));
+
+        /////No momento o que tá sendo guardado são os segundos.
+        /////O objetivo é obter resultados rápidos para implementar as medalhas ganhadas
+        corrida.setMinutosTempo(minus, 0);
+
+
+        MainActivity.Transicao.setCorrida(corrida);
+        startActivity(new Intent(CorridaActivity.this, FinishCorrida.class));
     }
 }
