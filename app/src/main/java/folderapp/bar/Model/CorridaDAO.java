@@ -226,4 +226,34 @@ public class CorridaDAO extends SQLiteOpenHelper{
 
         dbSQL.close();
     }
+    public int[] buscarMedalhas(){
+        int[] trofeis = new int[3];
+        String query = "SELECT "+ COLUNA_MEDALHA +" FROM " + TABELA_CORRIDA+" ORDER BY "+COLUNA_CODIGO+" DESC";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+
+        if(c.moveToFirst()){
+            do{
+                switch (Integer.parseInt(c.getString(0))) {
+                    case 1:
+                        trofeis[0]++;
+                        break;
+                    case 2:
+                        trofeis[1]++;
+                        break;
+                    case 3:
+                        trofeis[2]++;
+                        break;
+                    default:
+                        for(int i=0; i<3; i++) {
+                            trofeis[i] = 0;
+                        }
+                }
+                Log.i("$$$$$$$$$$$$$$$$", "Medalhas DIRETO DO BANCO $$$$$$$$$$$$$$$$$$$$$$  Medalha: "+Integer.parseInt(c.getString(0)));
+
+            }while(c.moveToNext());
+        }
+        return trofeis;
+    }
 }

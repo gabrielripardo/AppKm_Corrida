@@ -25,11 +25,11 @@ import folderapp.bar.Model.PerfilDAO;
 public class Home extends Fragment{
     Context contexto;
     private FloatingActionButton btnFMeta;
-    private TextView tVNome;
+    private TextView tVNome, tVMOuro, tVMPrata, tVMBronze;
     private TextView tVKm, tVMinutos;
     private CorridaDAO db;
     private PerfilDAO dbPerfil;
-    private Button imgBPerfil;
+    private Button imgBPerfil;private CorridaDAO bd;
     // private AppCompatActivity activity;
 
     public static Home newInstance() {
@@ -62,9 +62,19 @@ public class Home extends Fragment{
         tVNome = (TextView) v.findViewById(R.id.nome_tV);
         btnFMeta = (FloatingActionButton) v.findViewById(R.id.definirMeta_btnF);
         imgBPerfil = (Button) v.findViewById(R.id.perfil_imgB);
+        tVMBronze = (TextView) v.findViewById(R.id.bronze_tV);
+        tVMPrata = (TextView) v.findViewById(R.id.prata_tV);
+        tVMOuro = (TextView) v.findViewById(R.id.ouro_tV);
 
         tVNome.setText(dbPerfil.carregarPerfil(1).getNome());
         imgBPerfil.setBackgroundResource(Integer.parseInt(dbPerfil.carregarPerfil(1).getFoto()));
+
+        //Recupera o total de medalhas
+        int[] medalhas = db.buscarMedalhas();
+
+        tVMOuro.setText(String.valueOf(medalhas[0]));
+        tVMPrata.setText(String.valueOf(medalhas[1]));
+        tVMBronze.setText(String.valueOf(medalhas[2]));
 
         btnFMeta.setOnClickListener(new View.OnClickListener() {
             @Override

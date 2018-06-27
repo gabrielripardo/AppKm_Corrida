@@ -15,10 +15,12 @@
             android:id="@+id/tipo_tV2"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:text="Minha Corrida"
             android:textSize="25sp"
-            tools:layout_editor_absoluteX="112dp"
-            tools:layout_editor_absoluteY="30dp" />
+            app:layout_constraintStart_toEndOf="@+id/imageView13"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView13"
@@ -54,10 +56,11 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="44dp"
             android:text="Status:"
             android:textColor="#ff000000"
             app:layout_constraintStart_toStartOf="parent"
-            tools:layout_editor_absoluteY="91dp" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
         <TextView
             android:id="@+id/textView8"
@@ -200,11 +203,12 @@
             android:layout_height="21dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="44dp"
             android:text="Finalizada"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView12"
-            tools:layout_editor_absoluteY="91dp" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
         <TextView
             android:id="@+id/calendar_tV"
@@ -272,6 +276,17 @@
                 tools:layout_editor_absoluteX="244dp"
                 tools:layout_editor_absoluteY="442dp" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/trofeu_iV"
+            android:layout_width="125dp"
+            android:layout_height="114dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tipo_tV2"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </android.support.constraint.ConstraintLayout>

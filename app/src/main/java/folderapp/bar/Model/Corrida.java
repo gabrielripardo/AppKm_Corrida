@@ -2,6 +2,8 @@ package folderapp.bar.Model;
 
 import java.util.Date;
 
+import folderapp.bar.R;
+
 public class Corrida {
     private int id;
     private String comment;
@@ -149,6 +151,17 @@ public class Corrida {
     }
     public void setMinutosTempo(int minutos, int horas){
         this.setTempo(minutos+horas*60);
+    }
+    public int obterResource(){
+        switch (getMedalha()){
+            case 1:
+                return R.drawable.ouro;
+            case 2:
+                return R.drawable.prata;
+            case 3:
+                return R.drawable.bronze;
+        }
+        return 0;
     }
 }
 

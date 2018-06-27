@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,7 +85,7 @@ public class MyMeta extends Fragment{
             btnFIncrement = (FloatingActionButton) v.findViewById(R.id.increment_btnF);
             btnFDecrement = (FloatingActionButton) v.findViewById(R.id.decrement_btnF);
 
-            km = corrida.getKm();
+            km = corrida.getMaxKm();
 
             String[] tempoMax = corrida.convetToHoursFormat(corrida.getMaxTempo());
 
@@ -211,8 +212,25 @@ public class MyMeta extends Fragment{
             tVKm = (TextView) v.findViewById(R.id.meta_km_tV);
             tVMinutos = (TextView) v.findViewById(R.id.max_tempo_tV);
             btnFCorrerAgain = (FloatingActionButton) v.findViewById(R.id.correrAgain_btnF);
+            ImageView iVTrofeu = (ImageView) v.findViewById(R.id.trofeu_iV);
 
             corrida = db.carregarCorridaFinalizada(corrida.getId());
+
+            //
+
+            switch (corrida.getMedalha()){
+                case 1:
+                    iVTrofeu.setBackgroundResource(R.drawable.ouro_c_finalizada);
+                    break;
+                case 2:
+                    iVTrofeu.setBackgroundResource(R.drawable.prata_c_finalizada);
+                    break;
+                case 3:
+                    iVTrofeu.setBackgroundResource(R.drawable.bronze_c_finalizada);
+                    break;
+                default:
+                    iVTrofeu.setBackgroundResource(R.drawable.ic_about);
+            }
 
             String[] formatTime = corrida.convetToHoursFormat(corrida.getTempo());
             tVTempoReg.setText((formatTime[0]+":"+formatTime[1]));

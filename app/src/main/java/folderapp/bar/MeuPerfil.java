@@ -59,7 +59,7 @@ public class MeuPerfil extends AppCompatActivity {
                     this.voltarConfiguração();
                     img = R.drawable.avatar1;
                     mark = (RadioButton) findViewById(R.id.avatar1);
-                    mark.setBackgroundResource(R.drawable.ic_about);
+                    mark.setBackgroundResource(R.drawable.avatar1_selected);
                     Toast.makeText(getApplicationContext(), "Avatar 1 escolhido", Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -68,7 +68,7 @@ public class MeuPerfil extends AppCompatActivity {
                     this.voltarConfiguração();
                     img = R.drawable.avatar2;
                     mark = (RadioButton) findViewById(R.id.avatar2);
-                    mark.setBackgroundResource(R.drawable.ic_about);
+                    mark.setBackgroundResource(R.drawable.avatar2_selected);
                     Toast.makeText(getApplicationContext(), "Avatar 2 escolhido", Toast.LENGTH_SHORT).show();
                 }
                     break;
@@ -77,7 +77,7 @@ public class MeuPerfil extends AppCompatActivity {
                     this.voltarConfiguração();
                     img = R.drawable.avatar3;
                     mark = (RadioButton) findViewById(R.id.avatar3);
-                    mark.setBackgroundResource(R.drawable.ic_about);
+                    mark.setBackgroundResource(R.drawable.avatar3_selected);
                     Toast.makeText(getApplicationContext(), "Avatar 3 escolhido", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.avatar4:
@@ -85,7 +85,7 @@ public class MeuPerfil extends AppCompatActivity {
                     this.voltarConfiguração();
                     img = R.drawable.avatar4;
                     mark = (RadioButton) findViewById(R.id.avatar4);
-                    mark.setBackgroundResource(R.drawable.ic_about);
+                    mark.setBackgroundResource(R.drawable.avatar4_selected);
                     Toast.makeText(getApplicationContext(), "Avatar 4 escolhido", Toast.LENGTH_SHORT).show();
                 break;
 

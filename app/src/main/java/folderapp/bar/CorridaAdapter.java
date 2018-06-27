@@ -64,17 +64,7 @@ public class CorridaAdapter extends ArrayAdapter<Corrida> {
 
 
 		//Recupera o número da imagem da medalha e faz o set no iV
-		switch (elementos.get(position).getMedalha()){
-			case 1:
-				iVMedalha.setBackgroundResource(R.drawable.ouro);
-				break;
-			case 2:
-				iVMedalha.setBackgroundResource(R.drawable.prata);
-				break;
-			case 3:
-				iVMedalha.setBackgroundResource(R.drawable.bronze);
-				break;
-		}
+		iVMedalha.setBackgroundResource(elementos.get(position).obterResource());
 
 
 		//Faz os set da meta

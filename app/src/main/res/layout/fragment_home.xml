@@ -58,7 +58,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/textView20"
+                    android:id="@+id/ouro_tV"
                     android:layout_width="23dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -70,14 +70,14 @@
                     android:textColor="@color/colorBtnBlack"
                     android:textSize="22sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-                    app:layout_constraintEnd_toStartOf="@+id/textView28"
+                    app:layout_constraintEnd_toStartOf="@+id/bronze_tV"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/textView27"
+                    app:layout_constraintStart_toEndOf="@+id/prata_tV"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
-                    android:id="@+id/textView28"
+                    android:id="@+id/bronze_tV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
@@ -92,7 +92,7 @@
                     app:layout_constraintVertical_bias="1.0" />
 
                 <TextView
-                    android:id="@+id/textView27"
+                    android:id="@+id/prata_tV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
