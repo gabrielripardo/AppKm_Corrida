@@ -8,25 +8,10 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="170dp"
-        android:layout_height="wrap_content" />
-
-    <Spinner
-        android:id="@+id/spinner2"
+    <com.jjoe64.graphview.GraphView
+        android:id="@+id/grafico_gV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/graphic_example" />
-    </ScrollView>
+        android:layout_height="446dp"
+        android:visibility="visible" />
 
 </FrameLayout>

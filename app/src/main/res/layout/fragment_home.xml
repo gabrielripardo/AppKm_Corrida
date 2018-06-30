@@ -59,11 +59,11 @@
 
                 <TextView
                     android:id="@+id/ouro_tV"
-                    android:layout_width="23dp"
+                    android:layout_width="43dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="28dp"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="12dp"
                     android:layout_marginTop="60dp"
                     android:text="0"
                     android:textAlignment="center"
@@ -71,7 +71,7 @@
                     android:textSize="22sp"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView11"
                     app:layout_constraintEnd_toStartOf="@+id/bronze_tV"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.358"
                     app:layout_constraintStart_toEndOf="@+id/prata_tV"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
@@ -79,7 +79,7 @@
                 <TextView
                     android:id="@+id/bronze_tV"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_marginBottom="24dp"
                     android:layout_marginEnd="84dp"
                     android:layout_marginTop="8dp"
@@ -94,7 +94,7 @@
                 <TextView
                     android:id="@+id/prata_tV"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_marginBottom="24dp"
                     android:layout_marginStart="72dp"
                     android:layout_marginTop="8dp"
