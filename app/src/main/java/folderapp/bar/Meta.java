@@ -69,11 +69,9 @@ public class Meta extends Fragment{
         btnIncremHora = (Button) v.findViewById(R.id.incremHora_btn);
         btnDecremHora = (Button) v.findViewById(R.id.decremHora_btn);
 
-
-
         // Seta as informações
-        tVHoras.setText("0");
-        tVMinutos.setText("0");
+        tVHoras.setText("00");
+        tVMinutos.setText("00");
 
         //Controle de Percurso
         btnFIncrement.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +100,9 @@ public class Meta extends Fragment{
             public void onClick(View v) {
                 horas++;
                 tVHoras.setText(String.valueOf(horas));
+                if(horas <= 9){
+                    tVHoras.setText("0"+String.valueOf(horas));
+                }
             }
         });
 
@@ -111,6 +112,9 @@ public class Meta extends Fragment{
                 if(horas>=1) {
                     horas--;
                     tVHoras.setText(String.valueOf(horas));
+                    if(horas <= 9){
+                        tVHoras.setText("0"+String.valueOf(horas));
+                    }
                 }
             }
         });
@@ -127,6 +131,12 @@ public class Meta extends Fragment{
                 }
 
                 tVMinutos.setText(String.valueOf(minutos));
+                tVHoras.setText(String.valueOf(horas));
+                if(horas <= 9)
+                    tVHoras.setText("0"+String.valueOf(horas));
+
+                if(minutos <= 9)
+                    tVMinutos.setText("0"+String.valueOf(minutos));
             }
         });
 
@@ -141,6 +151,11 @@ public class Meta extends Fragment{
                     }
                     tVMinutos.setText(String.valueOf(minutos));
                     tVHoras.setText(String.valueOf(horas));
+                    if(horas <= 9)
+                    tVHoras.setText("0"+String.valueOf(horas));
+
+                    if(minutos <= 9)
+                        tVMinutos.setText("0"+String.valueOf(minutos));
                 }
             }
         });

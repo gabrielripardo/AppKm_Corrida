@@ -1,16 +1,11 @@
 package folderapp.bar;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -18,27 +13,21 @@ import android.widget.ProgressBar;
 import android.widget.TextClock;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
 
 import folderapp.bar.Model.Corrida;
-import folderapp.bar.Model.CorridaDAO;
-
-import static java.lang.Thread.sleep;
-
 
 public class CorridaActivity extends AppCompatActivity {
-    private Corrida corrida;
-    protected TextView tVGpsKm, tVKmMax, tVtempoMax;
     private FloatingActionButton btnFIniciar, btnFParar, btnFPausar;
-    private Button btnSimular;
+    protected TextView tVGpsKm, tVKmMax, tVtempoMax;
+    protected ProgressBar mProgressBar;
     private Chronometer cronometro;
+    private Button btnSimular;
+    private Corrida corrida;
+    protected static final int TIMER_RUNTIME = 10000;
     private long milliseconds;
     private int metros;
-    protected static final int TIMER_RUNTIME = 10000;
     protected boolean mbActive;
-    protected ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +35,6 @@ public class CorridaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_corrida);
 
         corrida = MainActivity.Transicao.getCorrida();
-//        Log.i("%%%%$$$$$$$", " Id:"+ corrida.getId()+" Km Máximo: "+corrida.getMaxKm());
 
         milliseconds = 0;
 
@@ -78,18 +66,13 @@ public class CorridaActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dateString = sdf.format(date);
         corrida.setdiaMesAno(dateString);
-        Log.i("####### Data #######", corrida.getdiaMesAno());
-
 
         //Marca as horas em que a corrida foi iniciada
         TextClock clock;
         clock = new TextClock(getApplicationContext());
-        clock.setFormat12Hour("HH:mm:ss");
+        clock.setFormat12Hour("hh:mm:ss");
         String horario = String.valueOf(clock.getText());
         corrida.setHorario(horario);
-
-        Log.i("###############", "Horário: " + corrida.getHorario());
-
 
         btnSimular.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,14 +80,10 @@ public class CorridaActivity extends AppCompatActivity {
                 iniciarBarra(true);
             }
         });
-
-
-
         btnFIniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnFIniciar.setImageResource(R.drawable.ic_play_off);
-
                 btnFIniciar.setEnabled(false);
                 btnFPausar.setImageResource(R.drawable.ic_pause);
                 btnFPausar.setEnabled(true);
@@ -114,7 +93,6 @@ public class CorridaActivity extends AppCompatActivity {
                 cronometro.start();
 
                 btnSimular.setEnabled(true);
-
             }
         });
         btnFParar.setOnClickListener(new View.OnClickListener() {
@@ -128,7 +106,6 @@ public class CorridaActivity extends AppCompatActivity {
 
                 mbActive = false;
                 salvarCorrida();
-
             }
         });
         btnFPausar.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +125,6 @@ public class CorridaActivity extends AppCompatActivity {
     public void updateProgress(final int timePassed) {
         if (null != mProgressBar) {
             final int progress = mProgressBar.getMax() * timePassed / TIMER_RUNTIME;
-
             mProgressBar.setProgress(progress);
         }
     }
@@ -160,7 +136,7 @@ public class CorridaActivity extends AppCompatActivity {
                     float percorre = (float) (corrida.getMaxKm()*1000)/10;
                     int waited = 0;
                     if(simular) {
-                        while (mbActive && (waited < TIMER_RUNTIME)) { //A cada 200 milisegundo é acresentado o 200 até chegar a 10000
+                        while (mbActive && (waited < TIMER_RUNTIME)) {
                             sleep(1000);
                             if (mbActive) {
 
@@ -175,7 +151,6 @@ public class CorridaActivity extends AppCompatActivity {
                                         tVGpsKm.setText(String.valueOf((float)metros/1000));
                                     }
                                 });
-
                             }
                         }
                     }else {
@@ -205,13 +180,10 @@ public class CorridaActivity extends AppCompatActivity {
         cronometro.stop();
 
         //Converte a String do cronometro em minutos
-        // int horas = Integer.parseInt(String.valueOf(cronometro.getText().charAt(0))+String.valueOf(cronometro.getText().charAt(1)));
         int minus = Integer.parseInt(String.valueOf(cronometro.getText().charAt(3))+String.valueOf(cronometro.getText().charAt(4)));
 
         /////No momento o que tá sendo guardado são os segundos.
-        /////O objetivo é obter resultados rápidos para implementar as medalhas ganhadas
         corrida.setMinutosTempo(minus, 0);
-
 
         MainActivity.Transicao.setCorrida(corrida);
         startActivity(new Intent(CorridaActivity.this, FinishCorrida.class));

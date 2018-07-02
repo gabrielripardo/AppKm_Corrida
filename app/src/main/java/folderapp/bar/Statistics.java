@@ -25,8 +25,7 @@ public class Statistics extends Fragment {
         View v = inflater.inflate(R.layout.fragment_statistics, container, false);
 
         GraphView graph = (GraphView) v.findViewById(R.id.grafico_gV);
-
-
+        //Graph view será implementado em breve
 
         return v;
     }

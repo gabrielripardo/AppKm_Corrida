@@ -21,23 +21,22 @@ import folderapp.bar.Model.Corrida;
 import folderapp.bar.Model.CorridaDAO;
 
 public class MyMeta extends Fragment{
-    Context contexto;
+    private Context contexto;
     private FloatingActionButton btnFSalvar, btnFUpdate, btnFCorrer, btnFIncrement, btnFDecrement, btnFCorrerAgain;
     private Button btnIncremMin, btnDecremMin, btnIncremHora, btnDecremHora;;
     private TextView tVKmMeta, tVMinutos, tVHoras, tVTempoReg, tVHorario, tVCalendar, tVKm;
     private TextInputEditText tIETComment;
     private CorridaDAO db;
-    // private AppCompatActivity activity;
-    private float km = 0;
+    private Corrida corrida;
     private DecimalFormat dc;
     private int minutos = 0;
     private int horas = 0;
-    private Corrida corrida;
+    private float km = 0;
+
 
     public static MyMeta newInstance() {
         MyMeta fragment = new MyMeta();
         return fragment;
-
     }
     @Override
     public void onAttach(Context context){
@@ -45,14 +44,12 @@ public class MyMeta extends Fragment{
         super.onAttach(context);
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         db = new CorridaDAO(getActivity());
         dc = new DecimalFormat("0.00");
-
     }
 
     @Override
@@ -61,13 +58,11 @@ public class MyMeta extends Fragment{
         //Recupera o objeto corrida
         corrida = MainActivity.Transicao.getCorrida();
 
-
+        //Referencia uma classe View.
         View v;
 
         if(!corrida.isFinalizada()) {
             v = inflater.inflate(R.layout.fragment_meta, container, false);
-
-            FloatingActionButton btnIncrement, btnDecrement;
 
             TextView tVTitle = (TextView) v.findViewById(R.id.tipo_tV);
             tVTitle.setText("Minha Meta");
@@ -91,18 +86,11 @@ public class MyMeta extends Fragment{
 
             horas = Integer.parseInt(tempoMax[0]);
             minutos = Integer.parseInt(tempoMax[1]);
-            //
 
             //Faz o set nos TextViews
-
             tVKmMeta.setText(String.valueOf(corrida.getMaxKm()));
-
-            //Deve pegar o tempo e transformar em horas, futuramente deverá ser do tipo int
-            // Seta as informações
-
             tVHoras.setText(tempoMax[0]);
             tVMinutos.setText(tempoMax[1]);
-
 
             tIETComment.setText(String.valueOf(corrida.getComment()));
 
@@ -176,12 +164,10 @@ public class MyMeta extends Fragment{
                 }
             });
 
-
             btnFSalvar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     salvarObjeto();
-
 
                     db.atualizarCorrida(corrida);
                     //Toast.makeText(Home.this, "Salvo com sucesso!", Toast.LENGTH_LONG).show();
@@ -198,7 +184,6 @@ public class MyMeta extends Fragment{
                     MainActivity.Transicao.setCorrida(corrida);
                     Intent intent = new Intent(getActivity(), CorridaActivity.class);
                     startActivity(intent);
-
                 }
             });
         }else {
@@ -217,8 +202,6 @@ public class MyMeta extends Fragment{
 
             corrida = db.carregarCorridaFinalizada(corrida.getId());
 
-            //
-
             switch (corrida.getMedalha()){
                 case 1:
                     iVTrofeu.setBackgroundResource(R.drawable.ouro_c_finalizada);
@@ -234,7 +217,8 @@ public class MyMeta extends Fragment{
             }
 
             String[] formatTime = corrida.convetToHoursFormat(corrida.getTempo());
-            tVTempoReg.setText((formatTime[0]+":"+formatTime[1]));
+          //  corrida.setMinutosMaxTempo(formatTime[0], formatTime[1]);
+            tVTempoReg.setText(String.valueOf(corrida.getTempo()));
             tVHorario.setText(corrida.getHorario());
             tVCalendar.setText(corrida.getdiaMesAno());
             tVKmMeta.setText(String.valueOf(corrida.getMaxKm()));
@@ -254,7 +238,7 @@ public class MyMeta extends Fragment{
                 }
             });
 
-            //Essa é parte em que ele grava o cometário no bd porém ele guarda taodas as informações do objeto novamente, causando redundância no banco.
+            //Essa é parte em que ele grava o cometário no bd, porém ele guarda taodas as informações do objeto novamente, causando redundância no banco.
              btnFUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -274,7 +258,6 @@ public class MyMeta extends Fragment{
         String co = String.valueOf(String.valueOf(tIETComment.getText()));
 
         corrida.setMaxKm(Float.parseFloat(String.valueOf(tVKmMeta.getText())));
-        // corrida.setTempo((tVMinutos.getText()));
         corrida.setMinutosMaxTempo(minutos, horas);
         corrida.setComment(String.valueOf(tIETComment.getText()));
     }

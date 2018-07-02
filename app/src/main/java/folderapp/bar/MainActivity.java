@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.navigation_statistics:
+                    // Tela de Estatísticas/Desempenho
                     selectedFragment = Statistics.newInstance();
                     break;
 

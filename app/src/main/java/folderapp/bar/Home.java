@@ -3,23 +3,13 @@ package folderapp.bar;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.text.DecimalFormat;
-
-import folderapp.bar.Model.Corrida;
 import folderapp.bar.Model.CorridaDAO;
-import folderapp.bar.Model.Perfil;
 import folderapp.bar.Model.PerfilDAO;
 
 public class Home extends Fragment{
@@ -29,20 +19,19 @@ public class Home extends Fragment{
     private TextView tVKm, tVMinutos;
     private CorridaDAO db;
     private PerfilDAO dbPerfil;
-    private Button imgBPerfil;private CorridaDAO bd;
-    // private AppCompatActivity activity;
+    private Button imgBPerfil;
+    private CorridaDAO bd;
 
     public static Home newInstance() {
         Home fragment = new Home();
         return fragment;
-
     }
+
     @Override
     public void onAttach(Context context){
         this.contexto = context;
         super.onAttach(context);
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,8 +39,6 @@ public class Home extends Fragment{
 
         db = new CorridaDAO(getActivity());
         dbPerfil = new PerfilDAO(getActivity());
-
-
     }
 
     @Override
@@ -69,9 +56,10 @@ public class Home extends Fragment{
         tVNome.setText(dbPerfil.carregarPerfil(1).getNome());
         imgBPerfil.setBackgroundResource(Integer.parseInt(dbPerfil.carregarPerfil(1).getFoto()));
 
-        //Recupera o total de medalhas
+        //Recupera o total de medalhas no bd
         int[] medalhas = db.buscarMedalhas();
 
+        //Seta os dados nos TextViews.
         tVMOuro.setText(String.valueOf(medalhas[0]));
         tVMPrata.setText(String.valueOf(medalhas[1]));
         tVMBronze.setText(String.valueOf(medalhas[2]));

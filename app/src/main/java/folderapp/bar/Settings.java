@@ -8,10 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
-
-import folderapp.bar.Model.Corrida;
 import folderapp.bar.Model.CorridaDAO;
-import folderapp.bar.Model.Perfil;
 import folderapp.bar.Model.PerfilDAO;
 
 public class Settings extends Fragment {
@@ -70,7 +67,6 @@ public class Settings extends Fragment {
                 Toast.makeText(getActivity(), result, Toast.LENGTH_SHORT).show();
             }
         });
-
 
         return v;
     }

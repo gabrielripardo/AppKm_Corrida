@@ -53,7 +53,6 @@ public class FinishCorrida extends AppCompatActivity {
                 startActivity(new Intent(FinishCorrida.this, CorridaActivity.class));
             }
         });
-
     }
 
     private int verificarResultado(){
@@ -71,13 +70,9 @@ public class FinishCorrida extends AppCompatActivity {
             medalha = R.drawable.bronze;
             tVGanhou.setText("Bronze");
             numM = 3;
-
         }
-
         iVMedalha.setBackgroundResource(medalha);
-
         tVTipo.setText("KM máximo: "+String.valueOf(c.getMaxKm())+" Km Percoriddo: "+String.valueOf(c.getKm())+"Valor da medalha: "+medalha);
-
         return numM;
     }
 
@@ -91,6 +86,7 @@ public class FinishCorrida extends AppCompatActivity {
         }
         super.onDestroy();
     }
+
     public void salvarCorridaDb(){
         c.setMedalha(verificarResultado());
         if(c.getId()!=0) {
@@ -100,7 +96,6 @@ public class FinishCorrida extends AppCompatActivity {
                     " Horário do início da largada: " + c.getHorario() +
                     " Data: " + c.getdiaMesAno() +
                     " Finalizada: " + c.isFinalizada());
-
             bd.atualizarCorridaFinalizada(c);
         }else{
             bd.addCorrida(c);
