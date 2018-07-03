@@ -199,6 +199,7 @@ public class CorridaDAO extends SQLiteOpenHelper{
                 corrida.setMaxKm(Float.parseFloat(c.getString(2)));
                 corrida.setMaxTempo(Integer.parseInt(c.getString(3)));
                 corrida.setMedalha(Integer.parseInt(c.getString(9)));
+                corrida.setKm(Float.parseFloat(c.getString(10)));
                 if(c.getString(5)!=null) {
                     if (Integer.parseInt(c.getString(5)) == 1)
                         corrida.setFinalizada(true);
