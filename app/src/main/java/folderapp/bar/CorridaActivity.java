@@ -2,10 +2,12 @@ package folderapp.bar;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -13,7 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+
+import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import folderapp.bar.Model.Corrida;
 
@@ -26,8 +34,11 @@ public class CorridaActivity extends AppCompatActivity {
     private Corrida corrida;
     protected static final int TIMER_RUNTIME = 10000;
     private long milliseconds;
-    private int metros;
+    protected int metros;
+    private double totalMetros;
     protected boolean mbActive;
+    protected GPS gps;
+    protected DecimalFormat decF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +47,10 @@ public class CorridaActivity extends AppCompatActivity {
 
         corrida = MainActivity.Transicao.getCorrida();
 
+        gps = new GPS(this);
+
         milliseconds = 0;
+       // cronometro.setText(DateFormat.format("kk:mm:ss",0));
 
         mbActive = true;
 
@@ -77,7 +91,7 @@ public class CorridaActivity extends AppCompatActivity {
         btnSimular.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                iniciarBarra(true);
+
             }
         });
         btnFIniciar.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +107,7 @@ public class CorridaActivity extends AppCompatActivity {
                 cronometro.start();
 
                 btnSimular.setEnabled(true);
+                iniciarBarra(false);
             }
         });
         btnFParar.setOnClickListener(new View.OnClickListener() {
@@ -136,10 +151,9 @@ public class CorridaActivity extends AppCompatActivity {
                     float percorre = (float) (corrida.getMaxKm()*1000)/10;
                     int waited = 0;
                     if(simular) {
-                        while (mbActive && (waited < TIMER_RUNTIME)) {
+                        while (mbActive && (waited < TIMER_RUNTIME)) { //TIMER_RUNTIME = 10000
                             sleep(1000);
                             if (mbActive) {
-
                                 waited += 1000;
                                 updateProgress(waited);
 
@@ -155,8 +169,49 @@ public class CorridaActivity extends AppCompatActivity {
                         }
                     }else {
                         //code gps
-                        //é viável criar um método ou uma classe para obter os metros do gps
-                        //valores de km gerados pelo gps
+                        mbActive = false;
+                        decF = new DecimalFormat("0.000");
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() { gps.createLocationRequest();
+
+                                gps.mLocationCallback = new LocationCallback() {
+                                    int waited = 0;
+                                    @Override
+                                    public void onLocationResult(LocationResult locationResult) {
+                                        if (locationResult == null) {
+                                            return;
+                                        }
+                                        for (Location location : locationResult.getLocations()) {
+                                            gps.someDistances(location);
+
+                                            //if(location.getSpeed()>0) {;
+                                                if (waited >= TIMER_RUNTIME) {
+                                                    tVGpsKm.setText(String.valueOf(corrida.getMaxKm()));
+
+                                                    if (gps.totalKms > corrida.getMaxKm()) {
+                                                        metros = (int) (corrida.getMaxKm() * 1000);
+                                                    } else {
+                                                        metros = (int) (gps.totalKms * 1000);
+                                                    }
+                                                    gps.stopLocationUpdate();
+                                                    salvarCorrida();
+                                                    break;
+                                                }
+                                                int varProgress = (int) ((TIMER_RUNTIME * gps.currentKm * 1000) / (corrida.getMaxKm() * 1000));
+                                                waited += varProgress / 2;
+                                                updateProgress(waited);
+                                                tVGpsKm.setText(String.valueOf(Float.parseFloat(decF.format(gps.totalKms))));
+                                                Log.i("Km Current", "var:waited = " + waited);
+                                                Log.i("Location Current:", "\nLongitude = " + location.getLongitude() + "\nLatitude" + location.getLongitude() + "\nSpeed: " + location.getSpeed());
+                                                }
+                                        //}
+                                    }
+                                };
+                                gps.startLocationUpdates();
+                            }
+                        });
                     }
                 }catch(InterruptedException e){
                     //Tratar exceção
@@ -184,6 +239,8 @@ public class CorridaActivity extends AppCompatActivity {
 
         /////No momento o que tá sendo guardado são os segundos.
         corrida.setMinutosTempo(minus, 0);
+
+        Log.i("Miliseconds", "Chronometter - Milliseconds: " + milliseconds+" getBase: "+cronometro.getBase());
 
         MainActivity.Transicao.setCorrida(corrida);
         startActivity(new Intent(CorridaActivity.this, FinishCorrida.class));

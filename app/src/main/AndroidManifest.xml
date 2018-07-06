@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -26,9 +28,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Home"
-            android:label="@string/title_activity_home" />
-        <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -42,10 +41,12 @@
             android:name=".MeuPerfil"
             android:label="@string/title_activity_meu_perfil" />
         <activity
-            android:name=".CorridaFinish"
+            android:name=".GPSActivity"
+            android:label="GPS" />
+        <activity
+            android:name=".FinishCorrida"
             android:label="@string/title_activity_corrida_finish"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FinishCorrida"></activity>
     </application>
 
 </manifest>

@@ -24,6 +24,7 @@ dependencies {
  //   implementation project(':GraphView')
     implementation 'com.jjoe64:graphview:4.2.1'
     implementation 'com.android.support:design:27.1.1'
+    implementation "com.google.android.gms:play-services-location:11.6.0"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:support-v4:27.1.1'
     testImplementation 'junit:junit:4.12'
