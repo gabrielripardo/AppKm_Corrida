@@ -66,7 +66,7 @@ public class CorridaActivity extends AppCompatActivity {
 
         tVKmMax.setText(String.valueOf(corrida.getMaxKm()));
 
-        String[] tempoLim = corrida.convetToHoursFormat(corrida.getMaxTempo());
+        String[] tempoLim = corrida.convetToHoursFormat();
 
         tVtempoMax.setText(tempoLim[0]+ ":" +tempoLim[1]);
 
@@ -234,13 +234,13 @@ public class CorridaActivity extends AppCompatActivity {
         //Cronometro deve parar e guardar seu valor no objeto Corrida
         cronometro.stop();
 
-        //Converte a String do cronometro em minutos
-        int minus = Integer.parseInt(String.valueOf(cronometro.getText().charAt(3))+String.valueOf(cronometro.getText().charAt(4)));
+        //Obtêm os milisegundos registrados pelo cronometro
+        int milli = (int) (SystemClock.elapsedRealtime() - cronometro.getBase());
 
-        /////No momento o que tá sendo guardado são os segundos.
-        corrida.setMinutosTempo(minus, 0);
+        //Insere os milisegundos no método para ser convertido para segundos.
+        corrida.millisecondsToSeconds(milli);
 
-        Log.i("Miliseconds", "Chronometter - Milliseconds: " + milliseconds+" getBase: "+cronometro.getBase());
+        Log.i("Miliseconds", "Chronometter - Milliseconds: " +(SystemClock.elapsedRealtime() - cronometro.getBase())+" getBase: "+cronometro.getBase());
 
         MainActivity.Transicao.setCorrida(corrida);
         startActivity(new Intent(CorridaActivity.this, FinishCorrida.class));

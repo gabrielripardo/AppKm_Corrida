@@ -82,7 +82,7 @@ public class MyMeta extends Fragment{
 
             km = corrida.getMaxKm();
 
-            String[] tempoMax = corrida.convetToHoursFormat(corrida.getMaxTempo());
+            String[] tempoMax = corrida.convetToHoursFormat();
 
             horas = Integer.parseInt(tempoMax[0]);
             minutos = Integer.parseInt(tempoMax[1]);
@@ -216,13 +216,15 @@ public class MyMeta extends Fragment{
                     iVTrofeu.setBackgroundResource(R.drawable.ic_about);
             }
 
-            String[] formatTime = corrida.convetToHoursFormat(corrida.getTempo());
-          //  corrida.setMinutosMaxTempo(formatTime[0], formatTime[1]);
-            tVTempoReg.setText(String.valueOf(corrida.getTempo()));
+            String[] formatTime = corrida.obterTempoFormat();
+            tVTempoReg.setText(formatTime[0]+formatTime[1]+":"+formatTime[2]+formatTime[3]+":"+formatTime[4]+formatTime[5]);
+
+            String[] formatTimeMax = corrida.convetToHoursFormat();
+
             tVHorario.setText(corrida.getHorario());
             tVCalendar.setText(corrida.getdiaMesAno());
             tVKmMeta.setText(String.valueOf(corrida.getMaxKm()));
-            tVMinutos.setText(String.valueOf(corrida.getMaxTempo()));
+            tVMinutos.setText(formatTimeMax[0]+formatTimeMax[1]+":"+formatTimeMax[2]+formatTimeMax[3]+":00");
             tIETComment.setText(corrida.getComment());
             tVKm.setText(String.valueOf(corrida.getKm()));
 

@@ -30,7 +30,7 @@ public class FinishCorrida extends AppCompatActivity {
         bd = new CorridaDAO(this);
         c = MainActivity.Transicao.getCorrida();
 
-        mediaPlayer = MediaPlayer.create(FinishCorrida.this, R.raw.game_of_thrones_8bits);
+        mediaPlayer = MediaPlayer.create(FinishCorrida.this, R.raw.top_gear_8bits);
         btnFNext = (FloatingActionButton) findViewById(R.id.next_btnF);
         btnFRestart = (FloatingActionButton) findViewById(R.id.restart_btnF);
         iVMedalha = (ImageView) findViewById(R.id.medalha_iV);

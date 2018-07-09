@@ -18,13 +18,14 @@ import java.util.List;
 
 public class PerfilDAO extends SQLiteOpenHelper{
     private static final int VERSAO_BANCO = 1;
-    private static String BANCO = "bd_kmperfilapp";
+    private static String BANCO = "bd_kmperfilapp_";
 
     private static final String TABELA_PERFIL = "tb_perfis";
     
     private static final String COLUNA_CODIGO = "codigo";
     private static final String COLUNA_NOME = "nome";
     private static final String COLUNA_FOTO = "foto";
+    private static final String COLUNA_SONG = "song";
 
     public PerfilDAO(Context context){
         super(context, BANCO, null, VERSAO_BANCO);
@@ -34,12 +35,10 @@ public class PerfilDAO extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         String QUERY_COLUNA = "CREATE TABLE " + TABELA_PERFIL + "("
                 + COLUNA_CODIGO + " INTEGER PRIMARY KEY, " + COLUNA_NOME + " TEXT,"+
-                COLUNA_FOTO+" TEXT)";
+                COLUNA_FOTO+" TEXT,"+ COLUNA_SONG+" INTEGER)";
 
         db.execSQL(QUERY_COLUNA);
-
     }
-
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -137,5 +136,32 @@ public class PerfilDAO extends SQLiteOpenHelper{
         db.execSQL("DELETE FROM "+TABELA_PERFIL);
 
         db.close();
+    }
+    public void setSong(int num){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        values.put(COLUNA_SONG, num);
+
+        db.insert(TABELA_PERFIL, null, values);
+        db.close();
+    }
+    public int getSong(){
+        int numSong = 0;
+        String query = "SELECT * FROM " + TABELA_PERFIL;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(query, null);
+
+        if(c.moveToFirst()){
+            do{
+          //      numSong = Integer.parseInt(c.getString(""));
+
+                Log.i("###### Tabela: Perfil", " id: "+c.getString(1)+" | Song: "+numSong);
+
+            }while(c.moveToNext());
+        }
+        return numSong;
     }
 }

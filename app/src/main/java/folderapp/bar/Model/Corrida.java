@@ -136,21 +136,69 @@ public class Corrida {
         this.finalizada = finalizada;
     }
 
-    public String[] convetToHoursFormat(int min) {
-
-        int minutos = min;
+    public String[] convetToHoursFormat() {
+        String[] hm = new String[4];
+        int minutos = getMaxTempo();
         int horas;
 
         horas = minutos/60;
         minutos = (minutos-(60*horas));
 
-        return new String[]{String.valueOf(horas), String.valueOf(minutos)};
+        hm[1]=String.valueOf(horas);
+        hm[3]=String.valueOf(minutos);
+        if(horas < 10){
+            hm[0]= "0";
+        }else
+            hm[0]="";
+        if(minutos < 10){
+            hm[2]="0";
+        }else
+            hm[2]="";
+
+        return hm;
     }
     public void setMinutosMaxTempo(int minutos, int horas){
         this.setMaxTempo(minutos+horas*60);
     }
     public void setMinutosTempo(int minutos, int horas){
         this.setTempo(minutos+horas*60);
+    }
+    public String[] obterTempoFormat(){
+        String[] hms = new String[6];
+        int sec = this.getTempo();
+        int min = 0;
+        int hor = 0;
+
+        if(sec >= 60){
+            min = sec / 60;
+            sec = sec-(min*60);
+        }
+        if(min >= 60){
+            hor = min / 60;
+            min = min-(hor*60);
+        }
+        hms[1] = String.valueOf(hor);
+        hms[3] = String.valueOf(min);
+        hms[5] = String.valueOf(sec);
+
+        if(hor < 10)
+            hms[0] = "0";
+        else
+            hms[0] = "";
+        if(min < 10)
+            hms[2] = "0";
+        else
+            hms[2] = "";
+        if(sec < 10)
+            hms[4] = "0";
+        else
+            hms[4] = "";
+
+        return hms;
+    }
+    public void millisecondsToSeconds(long milisegundos) {
+        int converted = (int) (milisegundos / 1000);
+        this.setTempo(converted);
     }
     public int obterResource(){
         switch (getMedalha()){

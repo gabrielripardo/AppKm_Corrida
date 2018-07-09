@@ -336,14 +336,6 @@
                         tools:layout_editor_absoluteX="321dp"
                         tools:layout_editor_absoluteY="8dp" />
 
-                    <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="3dp"
-                        android:layout_weight="0"
-                        android:text="min"
-                        android:textSize="10sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -371,14 +363,6 @@
                         tools:layout_editor_absoluteX="93dp"
                         tools:layout_editor_absoluteY="5dp" />
 
-                    <TextView
-                        android:id="@+id/textView20"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="3dp"
-                        android:layout_weight="0"
-                        android:text="min"
-                        android:textSize="10sp" />
                 </LinearLayout>
             </LinearLayout>
 
